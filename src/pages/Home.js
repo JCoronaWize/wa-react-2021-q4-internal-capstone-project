@@ -4,9 +4,9 @@ import GridContainer from "../components/GridContainer"
 const Home = () => {
     return(
         <div>
-            <HeroSlider>The Hero Still Slider</HeroSlider>
+            <HeroSlider></HeroSlider>
             <CardCaroussel></CardCaroussel>
-            <GridContainer></GridContainer>
+            <GridContainer theTitle="Featured Products"></GridContainer>
         </div>            
         )
 }
