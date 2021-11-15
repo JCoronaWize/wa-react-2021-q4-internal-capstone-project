@@ -21,7 +21,11 @@ const Slide = ({ id, active, key, srcImg, altText, description }) => {
     }
   `;
   return (
+<<<<<<< HEAD
     <SlideStyle id={id} key={key} srcImg altText>
+=======
+    <SlideStyle id={id} key srcImg altText>
+>>>>>>> 20d77bd3e2a940f881cab824a013b91d6f0ce05c
       <p>{description}</p>
     </SlideStyle>
   );
