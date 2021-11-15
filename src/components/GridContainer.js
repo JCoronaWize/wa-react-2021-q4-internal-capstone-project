@@ -30,8 +30,8 @@ const GridContainer = ({theTitle}) => {
     <Grid>
         <h3>{theTitle}</h3>    
     <div>
-      {data.results.map((item) => (
-        <ProductCard imgSrc={item.data.mainimage.url} productName={item.data.name}></ProductCard>
+      {data.results.map((item, index) => (
+        <ProductCard key={index} imgSrc={item.data.mainimage.url} productName={item.data.name}></ProductCard>
       ))}
     </div>
     </Grid>

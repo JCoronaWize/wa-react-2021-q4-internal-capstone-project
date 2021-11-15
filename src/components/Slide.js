@@ -1,9 +1,8 @@
 import styled from "styled-components";
-const Slide = ({ id, active, key, srcImg, altText, description }) => {
   const SlideStyle = styled.div`
-    display: ${active ? 'flex' : 'none'};
+    display: ${(props) => props.active ? 'flex' : 'none'};
     height: inherit;
-    background-image: url("${srcImg} no-repeat center center");
+    background-image: url(${(props) => `${props.src}`});    
     background-repeat: no-repeat;
     background-size: cover;
     align-items: flex-end;
@@ -20,8 +19,9 @@ const Slide = ({ id, active, key, srcImg, altText, description }) => {
       background-color: rgba(0, 0, 0, 0.6);
     }
   `;
+const Slide = ({ active, srcImg, altText, description }) => {
   return (
-    <SlideStyle key={key} srcImg altText>
+    <SlideStyle  src={srcImg} active={active} altText>
       <p>{description}</p>
     </SlideStyle>
   );

@@ -4,32 +4,32 @@ import Slide from "./Slide";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import styled from "styled-components";
 import { useState } from "react";
-const HeroSlider = ({ children, props }) => {
-  const StyledHeroSlider = styled.div`
-    height: 32em;
-    background-color: #6d0b9d;
-    color: white;
-    .arrow {
-      color: #647a32;
-      z-index: 1000;
-      position: absolute;
-      cursor: pointer;
-      font-size: 5em;
-      bottom: 50%;
-    }
-    .left {
-      right: .2em;
-    }
-    .right {
-      left: .2em;
-    }
+const StyledHeroSlider = styled.div`
+  height: 32em;
+  background-color: #6d0b9d;
+  color: white;
+  .arrow {
+    color: #647a32;
+    z-index: 1000;
+    position: absolute;
+    cursor: pointer;
+    font-size: 5em;
+    bottom: 50%;
+  }
+  .left {
+    right: 0.2em;
+  }
+  .right {
+    left: 0.2em;
+  }
 
-    div.slider {
-      width: 100%;
-      height: 100%;
-      overflow-x: hidden;
-    }
-  `;
+  div.slider {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
+`;
+const HeroSlider = ({ children, props }) => {
   const [current, setCurrent] = useState(0);
   const slideLength = data.results.length;
   const nextSlide = () => {
@@ -60,7 +60,7 @@ const HeroSlider = ({ children, props }) => {
       <div className="slider">
         {data.results.map((item, index) => (
           <Slide
-            key={data.key}
+            key={index}
             srcImg={item.data.main_image.url}
             altText={item.data.main_image.alt}
             description={item.data.description[0].text}

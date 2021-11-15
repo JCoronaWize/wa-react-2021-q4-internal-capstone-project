@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import "../Home.css";
 
-const ProductCard = ({ productName, imgSrc }) => {
   const ProductCardStyle = styled.div`
     display: flex;
-    background-image: url('${imgSrc} no-repeat center center fixed');
+    background-image: url(${(props) => `${props.src}`});   
     background-repeat: no-repeat;
     background-size: cover;
     margin: 1em;
@@ -26,9 +25,10 @@ const ProductCard = ({ productName, imgSrc }) => {
     height: 3em;
     background-color: rgba(100, 100, 120, 0.6);
   `;
+const ProductCard = ({ productName, imgSrc }) => {
 
   return (
-    <ProductCardStyle imgSrc>
+    <ProductCardStyle src={imgSrc}>
       <TextName>{productName}</TextName>
     </ProductCardStyle>
   );

@@ -2,7 +2,6 @@ import logo from "./the-logo.png";
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 
-const Header = () => {
   const TopNav = styled.nav`
     display: flex;
     padding: 0.2em 0.2em;
@@ -43,6 +42,7 @@ const Header = () => {
       max-height: 4em;      
     }
   `;
+const Header = () => {
 
   return (
     <header>
@@ -58,7 +58,7 @@ const Header = () => {
               className="search"
               disabled
               type="text"
-              placeholder="search something..."
+              placeholder="Looking for..."
             />
           </li>
           <li>
