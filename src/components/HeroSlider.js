@@ -8,7 +8,7 @@ import {
   SlideContainer,
 } from "./HeroSlider.styles";
 
-const HeroSlider = ({ children, props }) => {
+const HeroSlider = ({ slideData }) => {
   const [current, setCurrent] = useState(0);
   const slideLength = data.results.length;
   const nextSlide = () => {
@@ -31,12 +31,12 @@ const HeroSlider = ({ children, props }) => {
       <ArrowNav direction="left" onClick={prevSlide}></ArrowNav>
       <ArrowNav direction="right" onClick={nextSlide}></ArrowNav>
       <SlideContainer>
-        {data.results.map((item, index) => (
+        {slideData.map((item, index) => (
           <Slide
             key={index}
-            srcImg={item.data.main_image.url}
-            altText={item.data.main_image.alt}
-            description={item.data.description[0].text}
+            srcImg={item.img_src}
+            altText={item.img_alt}
+            description={item.img_desc}            
             active={index === current ? true : false}
           />
         ))}
