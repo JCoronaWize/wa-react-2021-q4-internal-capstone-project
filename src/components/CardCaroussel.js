@@ -1,7 +1,11 @@
 import "../Home.css";
 import CategoryCard from "./CategoryCard";
 import data from "../mocks/en-us/product-categories.json";
-import { Caroussel, CarousselSlideContainer, ArrowNav } from "./CardCaroussel.styled"
+import {
+  Caroussel,
+  CarousselSlideContainer,
+  ArrowNav,
+} from "./CardCaroussel.styles";
 
 const CardCaroussel = () => {
   return (

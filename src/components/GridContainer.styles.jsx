@@ -14,7 +14,7 @@ export const GridTitle = styled.h3`
   margin: 2em 0 1em 0;
 `;
 
-export const GridContainer = styled.div`
+export const GridCardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

@@ -1,11 +1,6 @@
-import styled from 'styled-components';
+import { StyledFooter } from './Footer.styles';
 import './Home.css';
 
-const StyledFooter = styled.footer`
-  background-color: #94B053;
-  color: white;
-  padding: 2em 0;
-`
 const Footer = () => {
     return(
         <StyledFooter>
