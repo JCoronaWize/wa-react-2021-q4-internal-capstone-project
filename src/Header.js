@@ -9,12 +9,18 @@ import {
 } from "./Header.styled";
 import { FaShoppingCart } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({current, onNavClick}) => {
+
+    const triggerParentNav = (event, to) => {
+      event.preventDefault()
+      onNavClick(to)
+    }
+
   return (
     <header>
       {/* Crear nav como otro elemento */}
       <TopNav>
-        <a href="./">
+        <a href="./" onClick={(event) => {triggerParentNav(event, '/')}}>
           <LogoHeader src={logo} alt="logo" />
         </a>
 

@@ -1,5 +1,4 @@
 import "../Home.css";
-import data from "../mocks/en-us/featured-banners.json";
 import Slide from "./Slide";
 import { useState } from "react";
 import {
@@ -10,7 +9,7 @@ import {
 
 const HeroSlider = ({ slideData }) => {
   const [current, setCurrent] = useState(0);
-  const slideLength = data.results.length;
+  const slideLength = slideData.length;
   const nextSlide = () => {
     if (current + 1 < slideLength) {
       setCurrent(current + 1);
