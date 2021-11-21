@@ -1,6 +1,6 @@
 import "../Home.css";
 import ProductCard from "./ProductCard";
-import { Grid, GridTitle, GridCardContainer } from "./GridContainer.styles";
+import { Grid, GridTitle, GridCardContainer, PaginationContainer, PagintationControl } from "./GridContainer.styles";
 
 const GridContainer = ({ productInfo, theTitle }) => {
   return (
@@ -21,6 +21,13 @@ const GridContainer = ({ productInfo, theTitle }) => {
           ></ProductCard>
         ))}
       </GridCardContainer>
+      <PaginationContainer>
+        <PagintationControl href="./" onClick={(event) => event.preventDefault()} >Prev</PagintationControl>
+          <div>
+            <PagintationControl href="./" onClick={(event) => event.preventDefault()}> 1</PagintationControl>
+          </div>
+        <PagintationControl href="./" onClick={(event) => event.preventDefault()} >Next</PagintationControl>
+      </PaginationContainer>
     </Grid>
   );
 };

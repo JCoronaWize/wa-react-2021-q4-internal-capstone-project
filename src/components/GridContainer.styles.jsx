@@ -22,3 +22,20 @@ export const GridCardContainer = styled.div`
   background-color: #ffffff;
   color: rgb(0, 0, 0);
 `;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 1em;
+  text-decoration: none;
+  margin: 2em 0 1em 0;
+`;
+
+export const PagintationControl = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+  &:hover{
+    font-weight: 700;
+  }
+`;

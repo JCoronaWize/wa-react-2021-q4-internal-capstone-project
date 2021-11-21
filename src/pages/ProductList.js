@@ -13,35 +13,34 @@ export const StyledProductPage = styled.section`
 `;
 
 export const StyledSidebar = styled.aside`
-  height: 100%; /* Full-height: remove this if you want "auto" height */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   align-content: flex-start;
-  width: 0 0 300px;
-  background-color: #111; /* Black */
+  min-width: 20%;
+  background-color: #515151;
   padding: 20px 0;
+  color: white;
+  padding: 1em;
 `;
 export const SidebarLink = styled.a`
-  display: flex;
-  flex-direction: column;
-  flex: 0 1 auto;
-  padding: 6px 8px 6px 16px;
+  display: block;
+  padding: .4em 0;
   cursor: pointer;
   text-decoration: none;
   font-size: 1em;
-  color: #818181;
-  display: block;
+  color: #b3b3b3;
   :hover {
     color: #f1f1f1;
   }
   `;
   
   export const StyledFilterChecked = styled(FaCheckCircle)`
-    color: ${(props) => (props.checked === true ? "green" : "grey")};
+    color: ${(props) => (props.checked === true ? "#9CB053" : "grey")};
     font-size: 1em;
-    margin: auto.5em;
+    margin: 0 1em;
   `;
+
 export const MainProductList = styled.main`
   display: flex;
   flex-direction: column;
@@ -67,13 +66,10 @@ const ProductList = () => {
   }
 
   const applyFilters = (filters) => {
-    let newList = productInfo;
-    if (filters.length > 0){
-      newList = productInfo.filter(el => (
+    let newList  = productInfo.filter(el => (
         filters.find((filt) => {
           return filt.toLowerCase() === el.category_name.toLowerCase()}))
         )
-    }
     setFiltProducts(newList)
   }
 
@@ -81,6 +77,7 @@ const ProductList = () => {
   return (
     <StyledProductPage>
       <StyledSidebar>
+        <h3>Filter:</h3>
         {categoriesInfo.map((item, index) => (
           <SidebarLink key={index} onClick={() => {adjustFilter(item.name) }}>
             {appliedFilters.find((el) => el === item.name) ? (
