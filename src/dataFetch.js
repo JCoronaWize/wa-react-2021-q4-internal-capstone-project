@@ -44,13 +44,13 @@ export const getBannersData = () => {
   };
   export const getProductsData = () => {
     let fetchedInfo = [];
-    featuredProductsData.results.map(
+    productsData.results.map(
     // productsData.results.map(
         (item, index) =>
         (fetchedInfo = [
           ...fetchedInfo,
           {
-            name: item.data.name ? item.data.name: "",
+            name: item.data.namde ? item.data.name: "dd",
             price: item.data.price ? item.data.price: "",
             // category_name: item.data.category.slug ? item.data.category.slug: "",
             category_name: item.data.category.id ? item.data.category.slug: "",            

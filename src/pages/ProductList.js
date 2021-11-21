@@ -46,7 +46,7 @@ const ProductList = () => {
       </StyledSidebar>
       <MainProductList>
         <h1>This is the product List 🛍️</h1>
-        <GridContainer featured></GridContainer>
+        <GridContainer ></GridContainer>
       </MainProductList>
     </StyledProductPage>
   );

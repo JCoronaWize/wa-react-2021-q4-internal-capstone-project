@@ -7,7 +7,7 @@ import { getFeaturedProductsData, getProductsData } from "../dataFetch";
 
 
 const GridContainer = ({ featured, theTitle }) => {
-  const productInfo = featured ? getFeaturedProductsData() : getProductsData ;
+  const productInfo = featured ? getFeaturedProductsData() : getProductsData() ;
   return (
     <Grid>
       <GridTitle>{theTitle}</GridTitle>
