@@ -50,7 +50,7 @@ export const getProductsData = () => {
         {
           name: item.data.name ? item.data.name : "",
           price: item.data.price ? item.data.price : "",
-          category_name: item.data.category.id ? item.data.category.slug : "",
+          category_name: item.data.category.slug ? item.data.category.slug : "",
           category_id: item.data.category.id ? item.data.category.id : "",
           img_src: item.data.mainimage.url ? item.data.mainimage.url : "",
           img_alt: item.data.mainimage.alt
@@ -71,7 +71,7 @@ export const getFeaturedProductsData = () => {
         {
           name: item.data.name ? item.data.name : "",
           price: item.data.price ? item.data.price : "",
-          category_name: item.data.category.id ? item.data.category.slug : "",
+          category_name: item.data.category.slug ? item.data.category.slug : "",
           category_id: item.data.category.id ? item.data.category.id : "",
           img_src: item.data.mainimage.url ? item.data.mainimage.url : "",
           img_alt: item.data.mainimage.alt

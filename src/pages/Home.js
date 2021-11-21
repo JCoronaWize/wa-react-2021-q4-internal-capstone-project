@@ -1,5 +1,4 @@
 import HeroSlider from "../components/HeroSlider";
-import data from "../mocks/en-us/featured-banners.json";
 import CardCaroussel from "../components/CardCaroussel";
 import GridContainer from "../components/GridContainer";
 import MainButton from "../components/MainButton";

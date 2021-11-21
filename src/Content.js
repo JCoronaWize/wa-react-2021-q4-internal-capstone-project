@@ -9,9 +9,7 @@ const Content = () => {
     const [currentPage, setCurrentPage] = useState('/')
 
     const navClick = (to) => {
-      console.log('Change Destination to: ',to)
       setCurrentPage(to)
-      // setCurrentPage(linkInfo)
     }
 
     return(
