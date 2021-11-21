@@ -1,12 +1,13 @@
 import "../Home.css";
 import CategoryCard from "./CategoryCard";
-import data from "../mocks/en-us/product-categories.json";
 import {
   Caroussel,
   CarousselSlideContainer,
   ArrowNav,
 } from "./CardCaroussel.styles";
+import { getCategoriesData } from "../dataFetch";
 
+const categoriesInfo = getCategoriesData();
 const CardCaroussel = () => {
   return (
     <Caroussel>
@@ -23,11 +24,11 @@ const CardCaroussel = () => {
         }}
       ></ArrowNav>
       <CarousselSlideContainer id="the_slider">
-        {data.results.map((item) => (
+        {categoriesInfo.map((item) => (
           <CategoryCard
             key={item.id}
-            imgSrc={item.data.main_image.url}
-            categoryName={item.data.name}
+            imgSrc={item.img_src}
+            categoryName={item.name}
           ></CategoryCard>
         ))}
       </CarousselSlideContainer>

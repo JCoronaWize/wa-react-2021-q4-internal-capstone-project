@@ -1,6 +1,7 @@
+import { useState } from "react/cjs/react.development";
 import styled from "styled-components";
 import GridContainer from "../components/GridContainer";
-import { getCategoriesData } from "../dataFetch";
+import { getCategoriesData, getFeaturedProductsData } from "../dataFetch";
 
 export const StyledProductPage = styled.section`
   display: flex;
@@ -36,17 +37,25 @@ export const MainProductList = styled.main`
   min-height: 90vh;
 `;
 const categoriesInfo = getCategoriesData();
-
+const productInfo = getFeaturedProductsData() ;
 const ProductList = () => {
+
+  const [filtProducts, setFiltProducts] = useState(productInfo)
+  const [appliedFilters, setAppliedFilters] = useState([])
+
+  
+
+
+
   return (
     <StyledProductPage>
       <StyledSidebar>
         {categoriesInfo.map((item) => 
-        <SidebarLink>{1 ? <span>❎</span> :  <span>⬜</span>}{item.img_desc}</SidebarLink>)}
+        <SidebarLink>{ 1 ? <span>❎</span> :  <span>⬜</span>}{item.name}</SidebarLink>)}
       </StyledSidebar>
       <MainProductList>
         <h1>This is the product List 🛍️</h1>
-        <GridContainer ></GridContainer>
+        <GridContainer productInfo={filtProducts} ></GridContainer>
       </MainProductList>
     </StyledProductPage>
   );
