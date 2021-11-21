@@ -2,7 +2,7 @@ import Header from './Header';
 import Footer from './Footer'
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 
 const Content = () => {
 

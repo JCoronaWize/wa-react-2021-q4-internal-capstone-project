@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
 import GridContainer from "../components/GridContainer";
