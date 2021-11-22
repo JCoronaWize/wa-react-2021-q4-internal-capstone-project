@@ -1,12 +1,15 @@
 import "../Home.css";
-import { StyleProductCard, TextName } from "./ProductCard.styles";
+import {
+  StyleProductCard,
+  TextCat,
+  TextName,
+} from "./ProductCard.styles";
 
 const ProductCard = ({ productName, categoryName, price, imgSrc }) => {
   return (
     <StyleProductCard src={imgSrc}>
-      {categoryName}
-      <br/>${price}<br/>
-      <TextName>{productName}</TextName>
+        <TextCat>{categoryName}</TextCat>
+        <TextName>{productName}<br/>${price}</TextName>
     </StyleProductCard>
   );
 };
