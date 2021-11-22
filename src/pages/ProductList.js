@@ -49,45 +49,44 @@ export const MainProductList = styled.main`
 `;
 
 export const StyledLoader = styled.div`
-  display: ${(props) => (props.showLoader === true ? "block" : "none")};
-  position: absolute;
+  display: block;
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 100%;
   z-index: 1000;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  background-color: rgba(0, 0, 0, .4);
+  background-color: rgba(0, 0, 0, 0.4);
 
-  div.spin{
-  display: block;
-  position: absolute;
-  top: 50vh;
-  left: 50vw;
-  width: 100px;
-  height: 100px;
-  background-color: #9CB053;
-  animation-name: spin;
-  animation-duration: 6000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  div.spin {
+    display: block;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    width: 100px;
+    height: 100px;
+    background-color: #9cb053;
+    animation-name: spin;
+    animation-duration: 6000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
   }
-}
 `;
 
 const categoriesInfo = getCategoriesData();
 const productInfo = getFeaturedProductsData();
 const ProductList = () => {
-  const [filtProducts, setFiltProducts] = useState([]);
+  const [filtProducts, setFiltProducts] = useState(productInfo);
   const [appliedFilters, setAppliedFilters] = useState([]);
-  const [displayLoader, setDisplayLoader] = useState(false);  
+  const [displayLoader, setDisplayLoader] = useState(false);
   const adjustFilter = (value) => {
     let filters = [];
     if (appliedFilters.find((el) => el === value)) {
@@ -101,52 +100,53 @@ const ProductList = () => {
   };
 
   const applyFilters = (filters) => {
-    let newList = productInfo.filter((el) =>
-      filters.find((filt) => {
-        return filt.toLowerCase() === el.category_name.toLowerCase();
-      })
-    );
+    let newList = [...productInfo];
+    if (filters.length > 0) {
+      newList = productInfo.filter((el) =>
+        filters.find((filt) => {
+          return filt.toLowerCase() === el.category_name.toLowerCase();
+        })
+      );
+    }
     setFiltProducts(newList);
   };
 
-  useEffect(
-    () => {
-      console.log('Reload')
-      setDisplayLoader(true)
-      setTimeout(() => {console.log('HideReload')
-      setDisplayLoader(false)
-    }, 2000)
-    }
-  , [filtProducts])
-
+  useEffect(() => {
+    setDisplayLoader(true);
+    setTimeout(() => {
+      setDisplayLoader(false);
+    }, 2000);
+  }, []);
 
   return (
     <>
-      <StyledLoader showLoader={displayLoader}><div class="spin"></div></StyledLoader>
-    <StyledProductPage>
-      <StyledSidebar>
-        <h3>Filter:</h3>
-        {categoriesInfo.map((item, index) => (
-          <SidebarLink
-            key={index}
-            onClick={() => {
-              adjustFilter(item.name);
-            }}
-          >
-            {appliedFilters.find((el) => el === item.name) ? (
-              <StyledFilterChecked checked />
-            ) : (
-              <StyledFilterChecked />
-            )}
-            {item.name}
-          </SidebarLink>
-        ))}
-      </StyledSidebar>
-      <MainProductList>
-        <h1>This is the product List 🛍️</h1>
-        <GridContainer productInfo={filtProducts}></GridContainer>
-      </MainProductList>
-    </StyledProductPage>
+      {displayLoader && <StyledLoader>
+        <div className="spin"></div>
+      </StyledLoader>}
+      <StyledProductPage>
+        <StyledSidebar>
+          <h3>Filter:</h3>
+          {categoriesInfo.map((item, index) => (
+            <SidebarLink
+              key={index}
+              onClick={() => {
+                adjustFilter(item.name);
+              }}
+            >
+              {appliedFilters.find((el) => el === item.name) ? (
+                <StyledFilterChecked checked />
+              ) : (
+                <StyledFilterChecked />
+              )}
+              {item.name}
+            </SidebarLink>
+          ))}
+        </StyledSidebar>
+        <MainProductList>
+          <h1>This is the product List 🛍️</h1>
+          <GridContainer productInfo={filtProducts}></GridContainer>
+        </MainProductList>
+      </StyledProductPage>
     </>
   );
 };
