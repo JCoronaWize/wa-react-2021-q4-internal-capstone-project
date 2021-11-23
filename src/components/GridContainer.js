@@ -1,39 +1,33 @@
 import "../Home.css";
-import data from "../mocks/en-us/featured-products.json";
-import styled from "styled-components";
 import ProductCard from "./ProductCard";
+import { Grid, GridTitle, GridCardContainer, PaginationContainer, PagintationControl } from "./GridContainer.styles";
 
-const Grid = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-around;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    div{
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        background-color: #ffffff;
-        color: rgb(0, 0, 0);       
-    }
-    h3 {
-        justify-content: center;
-        font-size: 2em;
-        margin: 2em 0 1em 0;
-    }
-`
-
-const GridContainer = ({theTitle}) => {
+const GridContainer = ({ productInfo, theTitle }) => {
   return (
     <Grid>
-        <h3>{theTitle}</h3>    
-    <div>
-      {data.results.map((item, index) => (
-        <ProductCard key={index} imgSrc={item.data.mainimage.url} productName={item.data.name}></ProductCard>
-      ))}
-    </div>
+      <GridTitle>{theTitle}</GridTitle>
+      <GridCardContainer>
+        {productInfo.map((item, index) => (
+          <ProductCard
+            // key={index}
+            // imgSrc={item.data.mainimage.url}
+            // productName={item.data.name}
+            key={index}
+            productName={item.name}
+            price={item.price}
+            categoryName={item.category_name}
+            imgSrc={item.img_src}
+            imgAlt={item.img_alt}
+          ></ProductCard>
+        ))}
+      </GridCardContainer>
+      <PaginationContainer>
+        <PagintationControl href="./" onClick={(event) => event.preventDefault()} >Prev</PagintationControl>
+          <div>
+            <PagintationControl href="./" onClick={(event) => event.preventDefault()}> 1</PagintationControl>
+          </div>
+        <PagintationControl href="./" onClick={(event) => event.preventDefault()} >Next</PagintationControl>
+      </PaginationContainer>
     </Grid>
   );
 };

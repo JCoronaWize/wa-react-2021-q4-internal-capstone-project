@@ -1,8 +1,26 @@
-const Content = ({children}) => {
+import Header from './Header';
+import Footer from './Footer'
+import Home from './pages/Home';
+import ProductList from './pages/ProductList';
+import { useState } from 'react';
+
+const Content = () => {
+
+    const [currentPage, setCurrentPage] = useState('/')
+
+    const navClick = (to) => {
+      setCurrentPage(to)
+    }
+
     return(
+      <>
+      <Header current={currentPage} onNavClick={navClick}></Header>
       <main>
-        {children}
+      {currentPage === '/' && <Home  onNavClick={navClick}></Home>}
+      {currentPage === '/products' && <ProductList></ProductList>}      
       </main>
+      <Footer></Footer>
+      </>
     )
   }
 
