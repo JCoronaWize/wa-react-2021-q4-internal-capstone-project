@@ -7,7 +7,7 @@ import { getCategoriesData, getFeaturedProductsData } from "../dataFetch";
 export const StyledProductPage = styled.section`
   display: flex;
   flex-direction: row;
-  @media only screen and (max-device-width: 850px) {
+  @media only screen and (max-width: 850px) {
     flex-direction: column;
   }
 `;
@@ -120,12 +120,15 @@ const ProductList = () => {
 
   return (
     <>
-      {displayLoader && <StyledLoader>
-        <div className="spin"></div>
-      </StyledLoader>}
+      {displayLoader && (
+        <StyledLoader>
+          <div className="spin"></div>
+        </StyledLoader>
+      )}
       <StyledProductPage>
         <StyledSidebar>
           <h3>Filter:</h3>
+          {/* ADAPT ELEMENTS TO BE TO BOOLEAN, ADD LINK TO THE CHECKED LOGIC TO CHANGE COLOR */}
           {categoriesInfo.map((item, index) => (
             <SidebarLink
               key={index}
@@ -143,7 +146,7 @@ const ProductList = () => {
           ))}
         </StyledSidebar>
         <MainProductList>
-          <h1>This is the product List 🛍️</h1>
+          <h1>Product List 🛍️</h1>
           <GridContainer productInfo={filtProducts}></GridContainer>
         </MainProductList>
       </StyledProductPage>

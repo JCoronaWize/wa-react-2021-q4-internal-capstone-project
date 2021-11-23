@@ -8,21 +8,16 @@ import {
   LogoHeader,
 } from "./Header.styled";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Header = ({current, onNavClick}) => {
-
-    const triggerParentNav = (event, to) => {
-      event.preventDefault()
-      onNavClick(to)
-    }
-
+const Header = () => {
   return (
     <header>
       {/* Crear nav como otro elemento */}
       <TopNav>
-        <a href="./" onClick={(event) => {triggerParentNav(event, '/')}}>
+        <Link to="/home">
           <LogoHeader src={logo} alt="logo" />
-        </a>
+        </Link>
 
         <NavItemsContainer>
           <NavItem>
