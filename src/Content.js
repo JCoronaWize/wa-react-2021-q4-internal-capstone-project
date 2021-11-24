@@ -2,7 +2,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
-import { useState } from "react";
 import { Route, Routes } from "react-router";
 import styled from "styled-components";
 
