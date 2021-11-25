@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
 import GridContainer from "../components/GridContainer";
-import { getCategoriesData, getFeaturedProductsData } from "../dataFetch";
+import { useCategoriesList, useProducts } from "../dataFetch";
 
 export const StyledProductPage = styled.section`
   display: flex;
@@ -81,10 +81,22 @@ export const StyledLoader = styled.div`
   }
 `;
 
-const categoriesInfo = getCategoriesData();
-const productInfo = getFeaturedProductsData();
-const ProductList = () => {
-  const [filtProducts, setFiltProducts] = useState(productInfo);
+const ProductList = (props) => {
+  const {
+    data: categoriesData,
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useCategoriesList();
+
+  const {
+    data: productsData,
+    isLoading: productsLoading,
+    error: productsError,
+  } = useProducts();
+
+  const [filtProducts, setFiltProducts] = useState(
+    productsData ? productsData : {}
+  );
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [displayLoader, setDisplayLoader] = useState(false);
   const adjustFilter = (value) => {
@@ -100,9 +112,9 @@ const ProductList = () => {
   };
 
   const applyFilters = (filters) => {
-    let newList = [...productInfo];
+    let newList = [...productsData];
     if (filters.length > 0) {
-      newList = productInfo.filter((el) =>
+      newList = productsData.filter((el) =>
         filters.find((filt) => {
           return filt.toLowerCase() === el.category_name.toLowerCase();
         })
@@ -129,25 +141,39 @@ const ProductList = () => {
         <StyledSidebar>
           <h3>Filter:</h3>
           {/* ADAPT ELEMENTS TO BE TO BOOLEAN, ADD LINK TO THE CHECKED LOGIC TO CHANGE COLOR */}
-          {categoriesInfo.map((item, index) => (
-            <SidebarLink
-              key={index}
-              onClick={() => {
-                adjustFilter(item.name);
-              }}
-            >
-              {appliedFilters.find((el) => el === item.name) ? (
-                <StyledFilterChecked checked />
-              ) : (
-                <StyledFilterChecked />
-              )}
-              {item.name}
-            </SidebarLink>
-          ))}
+          {categoriesLoading && <div>...Loading Cat</div>}
+          {!categoriesLoading && !categoriesError && (
+            <>
+              {categoriesData.map((item, index) => (
+                <SidebarLink
+                  key={index}
+                  onClick={() => {
+                    adjustFilter(item.name);
+                  }}
+                >
+                  {appliedFilters.find((el) => el === item.name) ? (
+                    <StyledFilterChecked checked />
+                  ) : (
+                    <StyledFilterChecked />
+                  )}
+                  {item.name}
+                </SidebarLink>
+              ))}
+            </>
+          )}
         </StyledSidebar>
         <MainProductList>
-          <h1>Product List 🛍️</h1>
-          <GridContainer productInfo={filtProducts}></GridContainer>
+          {productsLoading && <div>...Loading Products</div>}
+          {!productsLoading && !productsError && (
+            <>
+              {/* <div>{JSON.stringify(test)}</div> */}
+              <GridContainer
+                pagination
+                productInfo={productsData}
+                theTitle="Product List"
+              ></GridContainer>
+            </>
+          )}
         </MainProductList>
       </StyledProductPage>
     </>

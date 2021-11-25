@@ -1,18 +1,22 @@
 import "../Home.css";
 import ProductCard from "./ProductCard";
-import { Grid, GridTitle, GridCardContainer, PaginationContainer, PagintationControl } from "./GridContainer.styles";
+import {
+  Grid,
+  GridTitle,
+  GridCardContainer,
+  PaginationContainer,
+  PagintationControl,
+} from "./GridContainer.styles";
 
-const GridContainer = ({ productInfo, theTitle }) => {
+const GridContainer = ({ productInfo, theTitle, pagination }) => {
   return (
     <Grid>
       <GridTitle>{theTitle}</GridTitle>
       <GridCardContainer>
         {productInfo.map((item, index) => (
           <ProductCard
-            // key={index}
-            // imgSrc={item.data.mainimage.url}
-            // productName={item.data.name}
             key={index}
+            productId={item.id}
             productName={item.name}
             price={item.price}
             categoryName={item.category_name}
@@ -21,13 +25,31 @@ const GridContainer = ({ productInfo, theTitle }) => {
           ></ProductCard>
         ))}
       </GridCardContainer>
-      <PaginationContainer>
-        <PagintationControl href="./" onClick={(event) => event.preventDefault()} >Prev</PagintationControl>
+      {pagination && (
+        <PaginationContainer>
+          <PagintationControl
+            href="./"
+            onClick={(event) => event.preventDefault()}
+          >
+            Prev
+          </PagintationControl>
           <div>
-            <PagintationControl href="./" onClick={(event) => event.preventDefault()}> 1</PagintationControl>
+            <PagintationControl
+              href="./"
+              onClick={(event) => event.preventDefault()}
+            >
+              {" "}
+              1
+            </PagintationControl>
           </div>
-        <PagintationControl href="./" onClick={(event) => event.preventDefault()} >Next</PagintationControl>
-      </PaginationContainer>
+          <PagintationControl
+            href="./"
+            onClick={(event) => event.preventDefault()}
+          >
+            Next
+          </PagintationControl>
+        </PaginationContainer>
+      )}
     </Grid>
   );
 };

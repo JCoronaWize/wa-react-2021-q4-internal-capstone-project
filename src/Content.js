@@ -2,6 +2,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
+import ProductDetail from "./pages/ProductDetail";
 import { Route, Routes } from "react-router";
 import styled from "styled-components";
 
@@ -17,6 +18,15 @@ const Content = () => {
       <StyledMain>
         <Routes>
           <Route path="/products" element={<ProductList></ProductList>}></Route>
+          <Route
+            path="/products/category/:category"
+            element={<ProductList></ProductList>}
+          ></Route>
+          <Route
+            path="/product/:productId"
+            element={<ProductDetail></ProductDetail>}
+          ></Route>
+          {/* <Route path="/products?:category" element={<ProductList></ProductList>}></Route> */}
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/home" element={<Home></Home>}></Route>
         </Routes>
