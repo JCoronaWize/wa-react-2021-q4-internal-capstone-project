@@ -1,8 +1,7 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AddCartButton from "../components/AddCartButton";
-import CardCaroussel from "../components/CardCaroussel";
 import MainButton from "../components/MainButton";
-import { useCategoriesList, useProductDetailed } from "../dataFetch";
+import { useProductDetailed } from "../dataFetch";
 import {
   ContentContainer,
   GalleryContainer,
@@ -12,19 +11,19 @@ import {
 
 const Home = () => {
   const { productId } = useParams();
-  const theParams = useParams();
-  const theLocation = useLocation();
-  const {
-    data: categoriesData,
-    isLoading: categoriesLoading,
-    error: categoriesError,
-  } = useCategoriesList();
+  // const theParams = useParams();
+  // const theLocation = useLocation();
+  // const {
+  //   data: categoriesData,
+  //   isLoading: categoriesLoading,
+  //   error: categoriesError,
+  // } = useCategoriesList();
 
   const {
     data: productData,
     isLoading: productLoading,
     error: productError,
-    test,
+    // test,
   } = useProductDetailed(productId);
 
   return (
@@ -38,7 +37,11 @@ const Home = () => {
         <MainContainer>
           {/* {productId} */}
           <GalleryContainer>
-            <img style={{height: '480px', width: 'auto'}} src={productData[0].img_src} alt="" />
+            <img
+              style={{ height: "480px", width: "auto" }}
+              src={productData[0].img_src}
+              alt=""
+            />
           </GalleryContainer>
           <ContentContainer>
             <div className="info-container">

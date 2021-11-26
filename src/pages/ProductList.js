@@ -94,9 +94,9 @@ const ProductList = (props) => {
     error: productsError,
   } = useProducts();
 
-  const [filtProducts, setFiltProducts] = useState(
-    productsData ? productsData : {}
-  );
+  // const [filtProducts, setFiltProducts] = useState(
+  //   productsData ? productsData : {}
+  // );
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [displayLoader, setDisplayLoader] = useState(false);
   const adjustFilter = (value) => {
@@ -120,7 +120,8 @@ const ProductList = (props) => {
         })
       );
     }
-    setFiltProducts(newList);
+    console.log(newList)
+    // setFiltProducts(newList);
   };
 
   useEffect(() => {

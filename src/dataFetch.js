@@ -306,9 +306,9 @@ export function useFeaturedProducts() {
 
 export function useProductDetailed(productId) {
   const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
-  const testUrlb = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
-    `[[:d+=+at(document.id,+"${productId}")+]]`
-  )}`;
+  // const testUrlb = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
+  //   `[[:d+=+at(document.id,+"${productId}")+]]`
+  // )}`;
 
   const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=%5B%5B%3Ad+%3D+at%28document.id%2C+%22${productId}%22%29+%5D%5D`;
   // const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
