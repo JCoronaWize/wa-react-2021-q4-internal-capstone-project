@@ -20,7 +20,7 @@ const Home = () => {
     data: featuredProductsData,
     isLoading: featuredProductsLoading,
     error: featuredProductsError,
-    test
+    // test
   } = useFeaturedProducts();
   return (
     <>
