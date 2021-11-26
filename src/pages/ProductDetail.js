@@ -44,7 +44,7 @@ const Home = () => {
             <div className="info-container">
               {/* {JSON.stringify(productData)} */}
               <InfoLabel htmlFor="">{productData[0].name}</InfoLabel>
-              <InfoLabel htmlFor="">$ {productData[0].price}</InfoLabel>
+              <InfoLabel htmlFor="">$ {productData[0].price} US</InfoLabel>
               <InfoLabel htmlFor="">SKU: {productData[0].sku}</InfoLabel>
               <InfoLabel htmlFor="">
                 Category: {productData[0].category_name.toUpperCase()}
