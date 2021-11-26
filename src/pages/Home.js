@@ -20,6 +20,7 @@ const Home = () => {
     data: featuredProductsData,
     isLoading: featuredProductsLoading,
     error: featuredProductsError,
+    test
   } = useFeaturedProducts();
   return (
     <>
@@ -45,7 +46,7 @@ const Home = () => {
       {featuredProductsLoading && <div>...Loading Products</div>}
       {!featuredProductsLoading && !featuredProductsError && (
         <>
-          {/* <div>{JSON.stringify(test)}</div> */}
+          <div>{JSON.stringify(test)}</div>
           {/* <div>{JSON.stringify(featuredProductsData)}</div> */}
           <GridContainer
             productInfo={featuredProductsData}

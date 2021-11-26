@@ -303,3 +303,89 @@ export function useFeaturedProducts() {
 
 //   return fetchedInfo;
 // };
+
+export function useProductDetailed(productId) {
+  const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
+  const testUrlb = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
+    `[[:d+=+at(document.id,+"${productId}")+]]`
+  )}`;
+
+  const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=%5B%5B%3Ad+%3D+at%28document.id%2C+%22${productId}%22%29+%5D%5D`;
+  // const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
+  //   '[[at(document.type, "product")]]'
+  // )}&q=${encodeURIComponent(
+  //   '[[at(document.tags, ["Featured"])]]'
+  // )}&lang=en-us&pageSize=5`;
+  const [products, setProducts] = useState(() => ({
+    data: {},
+    test: testUrl,
+    isLoading: true,
+    error: "",
+  }));
+
+  useEffect(() => {
+    if (!apiRef || isApiMetadataLoading) {
+      return () => {};
+    }
+
+    const controller = new AbortController();
+
+    async function getProducts() {
+      try {
+        setProducts({ data: {}, isLoading: true });
+
+        const response = await fetch(
+          testUrl,
+
+          {
+            signal: controller.signal,
+          }
+        );
+        const data = await response.json();
+        // Format json to expected prop names in components
+        let fetchedInfo = [];
+        data.results.map(
+          (item, index) =>
+            (fetchedInfo = [
+              ...fetchedInfo,
+              {
+                name: item.data.name ? item.data.name : "",
+                stock: item.data.stock ? item.data.stock : "",
+                specs: item.data.specs ? item.data.specs : "",                
+                sku: item.data.sku ? item.data.sku : "",
+                description: item.data.description[0].text ? item.data.description[0].text : "",
+                id: item.id ? item.id : "",
+                price: item.data.price ? item.data.price : "",
+                category_name: item.data.category.slug
+                  ? item.data.category.slug
+                  : "",
+                category_id: item.data.category.id ? item.data.category.id : "",
+                img_src: item.data.mainimage.url ? item.data.mainimage.url : "",
+                img_alt: item.data.mainimage.alt
+                  ? item.data.mainimage.alt
+                  : `Image ${index}`,
+              },
+            ])
+        );
+
+        setProducts({
+          data: fetchedInfo,
+          test: testUrl,
+          isLoading: false,
+          error: "",
+        });
+      } catch (err) {
+        setProducts({ data: {}, test: testUrl, isLoading: false, error: err });
+        console.error(err);
+      }
+    }
+
+    getProducts();
+
+    return () => {
+      controller.abort();
+    };
+  }, [apiRef, isApiMetadataLoading, testUrl]);
+
+  return products;
+}
