@@ -211,7 +211,7 @@ export function useFeaturedProducts() {
     '[[at(document.type, "product")]]'
   )}&q=${encodeURIComponent(
     '[[at(document.tags, ["Featured"])]]'
-  )}&lang=en-us&pageSize=5`;
+  )}&lang=en-us&pageSize=16`;
   const [products, setProducts] = useState(() => ({
     data: {},
     test: testUrl,

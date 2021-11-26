@@ -10,15 +10,17 @@ const ProductCard = ({
   productId,
 }) => {
   return (
+    <Link to={`/product/${productId}`}>
     <StyleProductCard src={imgSrc}>
       <TextCat>{categoryName}</TextCat>
       <TextName>
         {productName}
         <br />${price}
         <br />
-        <Link to={`/product/${productId}`}>VIEW MORE ({productId})</Link>
+
       </TextName>
     </StyleProductCard>
+        </Link>
   );
 };
 
