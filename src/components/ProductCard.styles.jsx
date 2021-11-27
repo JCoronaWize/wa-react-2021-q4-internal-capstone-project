@@ -1,5 +1,7 @@
 import styled from "styled-components";
 export const StyleProductCard = styled.div`
+  text-decoration: none;
+  color: white;
   display: flex;
   flex-direction: column;
   background-image: url(${(props) => `${props.src}`});

@@ -19,7 +19,7 @@ const Content = () => {
         <Routes>
           <Route path="/products" element={<ProductList></ProductList>}></Route>
           <Route
-            path="/products/category/:category"
+            path="/products"
             element={<ProductList></ProductList>}
           ></Route>         
           <Route

@@ -34,13 +34,20 @@ const GridContainer = ({ productInfo, theTitle, pagination }) => {
             Prev
           </PagintationControl>
           <div>
-            <PagintationControl
+          <PagintationControl
               href="./"
               onClick={(event) => event.preventDefault()}
             >
               {" "}
               1
             </PagintationControl>
+            <PagintationControl
+              href="./"
+              onClick={(event) => event.preventDefault()}
+            >
+              {" "}
+              2
+            </PagintationControl>            
           </div>
           <PagintationControl
             href="./"

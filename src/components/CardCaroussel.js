@@ -26,6 +26,7 @@ const CardCaroussel = ({ cardInfos }) => {
             key={item.id}
             imgSrc={item.img_src}
             categoryName={item.name}
+            categorySlug={item.slugs}
           ></CategoryCard>
         ))}
       </CarousselSlideContainer>

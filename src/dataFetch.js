@@ -49,7 +49,8 @@ export function useCategoriesList() {
                   ? item.data.main_image.alt
                   : `Image ${index}`,
                 name: item.data.name ? item.data.name : "",
-                id: item.data.name ? item.data.name : "",
+                id: item.id ? item.id : "",
+                slugs: item.slugs ? item.slugs : "",
               },
             ])
         );
@@ -109,7 +110,7 @@ export function useCategoriesList() {
 //   );
 //   return fetchedInfo;
 // };
-export function useProducts() {
+export function useProducts(filters = [], search = "") {
   const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
   const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
     '[[at(document.type, "product")]]'
@@ -162,6 +163,25 @@ export function useProducts() {
             ])
         );
 
+        if (filters.length > 0) {
+          console.log("aplicar filtros en Hook");
+          let newList = [...fetchedInfo];
+          newList = newList.filter((el) =>
+            filters.find((filt) => {
+              return filt === el.category_name;
+            })
+          );
+          fetchedInfo = [...newList];
+        } else {
+          console.log("Ver todo");
+        }
+
+        if (search) {
+          console.log("parametro busqueda");
+        } else {
+          console.log("sin parametro busqueda");
+        }
+
         setProducts({
           data: fetchedInfo,
           test: testUrl,
@@ -179,7 +199,7 @@ export function useProducts() {
     return () => {
       controller.abort();
     };
-  }, [apiRef, isApiMetadataLoading, testUrl]);
+  }, [apiRef, isApiMetadataLoading, filters, search, testUrl]);
 
   return products;
 }
@@ -351,9 +371,11 @@ export function useProductDetailed(productId) {
               {
                 name: item.data.name ? item.data.name : "",
                 stock: item.data.stock ? item.data.stock : "",
-                specs: item.data.specs ? item.data.specs : "",                
+                specs: item.data.specs ? item.data.specs : "",
                 sku: item.data.sku ? item.data.sku : "",
-                description: item.data.description[0].text ? item.data.description[0].text : "",
+                description: item.data.description[0].text
+                  ? item.data.description[0].text
+                  : "",
                 id: item.id ? item.id : "",
                 price: item.data.price ? item.data.price : "",
                 category_name: item.data.category.slug

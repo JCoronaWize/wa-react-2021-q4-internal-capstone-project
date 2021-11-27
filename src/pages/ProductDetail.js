@@ -11,14 +11,6 @@ import {
 
 const Home = () => {
   const { productId } = useParams();
-  // const theParams = useParams();
-  // const theLocation = useLocation();
-  // const {
-  //   data: categoriesData,
-  //   isLoading: categoriesLoading,
-  //   error: categoriesError,
-  // } = useCategoriesList();
-
   const {
     data: productData,
     isLoading: productLoading,

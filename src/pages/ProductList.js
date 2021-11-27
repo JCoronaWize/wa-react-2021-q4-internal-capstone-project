@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
 import GridContainer from "../components/GridContainer";
 import { useCategoriesList, useProducts } from "../dataFetch";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const StyledProductPage = styled.section`
   display: flex;
@@ -82,6 +83,26 @@ export const StyledLoader = styled.div`
 `;
 
 const ProductList = (props) => {
+  const locationPath = useLocation().pathname;
+  const locationQuery = useLocation().search;
+  const navigate = useNavigate();
+  const bfilters = new URLSearchParams(decodeURIComponent(locationQuery)).get(
+    "category"
+  );
+  const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
+    "search"
+  );
+  const bfiltersArray =
+    bfilters && bfilters.length > 0 ? bfilters.split(",") : [];
+  // console.log(bfilters);
+  // console.log("make the search", bsearch);
+  // console.log(bfiltersArray);
+
+  // const [filtProducts, setFiltProducts] = useState([]);
+  const [appliedFilters, setAppliedFilters] = useState(
+    bfiltersArray.length > 0 ? bfiltersArray : []
+  );
+  const [displayLoader, setDisplayLoader] = useState(false);
   const {
     data: categoriesData,
     isLoading: categoriesLoading,
@@ -92,36 +113,33 @@ const ProductList = (props) => {
     data: productsData,
     isLoading: productsLoading,
     error: productsError,
-  } = useProducts();
+  } = useProducts(appliedFilters);
 
-  // const [filtProducts, setFiltProducts] = useState(
-  //   productsData ? productsData : {}
-  // );
-  const [appliedFilters, setAppliedFilters] = useState([]);
-  const [displayLoader, setDisplayLoader] = useState(false);
   const adjustFilter = (value) => {
-    let filters = [];
-    if (appliedFilters.find((el) => el === value)) {
-      filters = appliedFilters.filter((el) => el !== value);
+    console.clear();
+    // console.log("newValue", value);
+    // console.log("currFilters", appliedFilters);
+    let filters = [...appliedFilters];
+    if (appliedFilters.find((el) => value.find((slugEl) => el === slugEl))) {
+      value.map((slugEl) => (filters = filters.filter((el) => el !== slugEl)));
       setAppliedFilters(filters);
+      // console.log("REMOVEE FILTER", filters);
     } else {
-      filters = [...appliedFilters, value];
+      filters = [...appliedFilters, ...value];
       setAppliedFilters(filters);
+      // console.log("ADD TO FILTERS", filters);
     }
     applyFilters(filters);
   };
 
   const applyFilters = (filters) => {
-    let newList = [...productsData];
-    if (filters.length > 0) {
-      newList = productsData.filter((el) =>
-        filters.find((filt) => {
-          return filt.toLowerCase() === el.category_name.toLowerCase();
-        })
-      );
-    }
-    console.log(newList)
-    // setFiltProducts(newList);
+    let searchParam = "";
+    let uriCat = filters.length > 0 ? `category=${filters.toString()}` : ``;
+    let uriSearch = bsearch ? `search=${`hello`}` : ``;
+
+    searchParam = uriCat !== "" && uriSearch !== "" ? `${uriCat}&` : uriCat;
+    searchParam = `${searchParam}${uriSearch}`;
+    navigate(`${locationPath}?${searchParam}`);
   };
 
   useEffect(() => {
@@ -129,7 +147,7 @@ const ProductList = (props) => {
     setTimeout(() => {
       setDisplayLoader(false);
     }, 2000);
-  }, []);
+  }, [productsData]);
 
   return (
     <>
@@ -145,14 +163,17 @@ const ProductList = (props) => {
           {categoriesLoading && <div>...Loading Cat</div>}
           {!categoriesLoading && !categoriesError && (
             <>
+              {/* {JSON.stringify(categoriesData[0])} */}
               {categoriesData.map((item, index) => (
                 <SidebarLink
                   key={index}
                   onClick={() => {
-                    adjustFilter(item.name);
+                    adjustFilter(item.slugs);
                   }}
                 >
-                  {appliedFilters.find((el) => el === item.name) ? (
+                  {appliedFilters.find((el) =>
+                    item.slugs.find((slugEl) => el === slugEl)
+                  ) ? (
                     <StyledFilterChecked checked />
                   ) : (
                     <StyledFilterChecked />
@@ -167,6 +188,7 @@ const ProductList = (props) => {
           {productsLoading && <div>...Loading Products</div>}
           {!productsLoading && !productsError && (
             <>
+              {/* {console.log("filtro prodcutos", productsData)} */}
               {/* <div>{JSON.stringify(test)}</div> */}
               <GridContainer
                 pagination
