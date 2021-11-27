@@ -27,8 +27,6 @@ const Home = () => {
       {bannerLoading && <div>...Loading</div>}
       {!bannerLoading && !bannerError && (
         <>
-          {console.dir(bannerData.results)}
-          {console.dir(bannerData.results.length)}
           <HeroSlider
             slideData={bannerData}
             slideCount={bannerData.results.length}

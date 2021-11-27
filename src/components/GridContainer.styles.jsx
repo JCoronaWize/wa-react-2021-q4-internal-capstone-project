@@ -18,7 +18,7 @@ export const GridCardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   background-color: #ffffff;
   color: rgb(0, 0, 0);
 `;
@@ -34,6 +34,9 @@ export const PaginationContainer = styled.div`
 
 export const PagintationControl = styled.a`
   text-decoration: none;
+  font-size: 1em;
+  padding: .4em .8em;
+  margin: 0 .8em;
   cursor: pointer;
   &:hover{
     font-weight: 700;

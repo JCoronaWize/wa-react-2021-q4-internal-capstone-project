@@ -18,10 +18,7 @@ const Content = () => {
       <StyledMain>
         <Routes>
           <Route path="/products" element={<ProductList></ProductList>}></Route>
-          <Route
-            path="/products"
-            element={<ProductList></ProductList>}
-          ></Route>         
+          <Route path="/products" element={<ProductList></ProductList>}></Route>
           <Route
             path="/product/:productId"
             element={<ProductDetail></ProductDetail>}

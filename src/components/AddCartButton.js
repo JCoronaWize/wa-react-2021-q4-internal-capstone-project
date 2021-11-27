@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledButton = styled.button`
   display: flex;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   color: white;
   font-weight: 700;
   border: none;
@@ -11,7 +11,7 @@ const StyledButton = styled.button`
   margin: 1em 0;
   max-width: 350px;
   padding: 1em;
-  font-size: .8em;
+  font-size: 0.8em;
   border-radius: 0.4em;
   cursor: pointer;
   text-decoration: none;
