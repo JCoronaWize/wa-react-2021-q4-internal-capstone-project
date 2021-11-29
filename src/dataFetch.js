@@ -321,15 +321,12 @@ export function useProductDetailed(productId) {
   return products;
 }
 
-
-
-
 export function useProductSearch(search = "") {
   const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
   const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
     '[[at(document.type, "product")]]'
   )}&q=${encodeURIComponent(
-    '[[fulltext(document, "'+search+'")]]'
+    '[[fulltext(document, "' + search + '")]]'
   )}&lang=en-us&pageSize=60`;
   const [products, setProducts] = useState(() => ({
     data: {},
@@ -378,12 +375,6 @@ export function useProductSearch(search = "") {
               },
             ])
         );
-
-        // if (search) {
-        //   console.log("parametro busqueda");
-        // } else {
-        //   console.log("sin parametro busqueda");
-        // }
 
         setProducts({
           data: fetchedInfo,

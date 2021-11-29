@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import GridContainer from "../components/GridContainer";
 import { useProductSearch } from "../dataFetch";
 import { useLocation } from "react-router-dom";
-import { StyledLoader, StyledProductPage, MainProductList } from "./ProductList";
+import {
+  StyledLoader,
+  StyledProductPage,
+  MainProductList,
+} from "./ProductList";
 
 const SearchResults = (props) => {
   const locationQuery = useLocation().search;
@@ -16,7 +20,6 @@ const SearchResults = (props) => {
     isLoading: productsLoading,
     error: productsError,
   } = useProductSearch(bsearch);
-
 
   useEffect(() => {
     setDisplayLoader(true);
@@ -37,8 +40,6 @@ const SearchResults = (props) => {
           {productsLoading && <div>...Loading Products</div>}
           {!productsLoading && !productsError && (
             <>
-              {/* {console.log("filtro prodcutos", productsData)} */}
-              {/* <div>{JSON.stringify(test)}</div> */}
               <GridContainer
                 pagination={20}
                 productInfo={productsData}

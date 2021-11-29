@@ -14,10 +14,10 @@ export const NavItemsContainer = styled.ul`
   justify-content: flex-end;
 `;
 export const NavItem = styled.li`
-  padding: 0 .5em;
+  padding: 0 0.5em;
   display: flex;
   align-items: center;
-  justify-content: space-between;  
+  justify-content: space-between;
   list-style: none;
   flex: 1;
 `;
@@ -41,5 +41,5 @@ export const LogoHeader = styled.img`
   max-height: 5em;
   @media only screen and (max-width: 850px) {
     max-height: 3em;
-  }  
+  }
 `;

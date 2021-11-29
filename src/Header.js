@@ -20,9 +20,7 @@ const Header = () => {
     "q"
   );
   const [searchTerm, setSearchTerm] = useState(bsearch ? bsearch : "");
-  useEffect(() => {
-    // console.log('CHANGE searchTerm', searchTerm)
-  }, [searchTerm]);
+  useEffect(() => {}, [searchTerm]);
 
   const doSearch = () => {
     const searchParam = searchTerm ? `q=${searchTerm}` : ``;
@@ -31,7 +29,6 @@ const Header = () => {
 
   return (
     <header>
-      {/* Crear nav como otro elemento */}
       <TopNav>
         <Link to="/home">
           <LogoHeader src={logo} alt="logo" />
@@ -48,7 +45,9 @@ const Header = () => {
                 setSearchTerm(event.target.value);
               }}
             />
-            {searchTerm !== '' && <SimpleButton clickAction={doSearch}>SEARCH</SimpleButton>}
+            {searchTerm !== "" && (
+              <SimpleButton clickAction={doSearch}>SEARCH</SimpleButton>
+            )}
           </NavItem>
           <NavItem>
             <TopNavLink href="./">

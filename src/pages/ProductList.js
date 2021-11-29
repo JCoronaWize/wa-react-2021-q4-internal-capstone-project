@@ -31,7 +31,8 @@ export const SidebarLink = styled.a`
   cursor: pointer;
   text-decoration: none;
   font-size: 1em;
-  color: #b3b3b3;
+  color: ${(props) => (props.highlightColor === true ? "#f1f1f1" : "#b3b3b3")};
+  /* color: #b3b3b3; */
   :hover {
     color: #f1f1f1;
   }
@@ -90,16 +91,11 @@ const ProductList = (props) => {
   const bfilters = new URLSearchParams(decodeURIComponent(locationQuery)).get(
     "category"
   );
-  const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
-    "search"
-  );
+  // const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
+  //   "search"
+  // );
   const bfiltersArray =
     bfilters && bfilters.length > 0 ? bfilters.split(",") : [];
-  // console.log(bfilters);
-  // console.log("make the search", bsearch);
-  // console.log(bfiltersArray);
-
-  // const [filtProducts, setFiltProducts] = useState([]);
   const [appliedFilters, setAppliedFilters] = useState(
     bfiltersArray.length > 0 ? bfiltersArray : []
   );
@@ -117,18 +113,13 @@ const ProductList = (props) => {
   } = useProducts(appliedFilters);
 
   const adjustFilter = (value) => {
-    console.clear();
-    // console.log("newValue", value);
-    // console.log("currFilters", appliedFilters);
     let filters = [...appliedFilters];
     if (appliedFilters.find((el) => value.find((slugEl) => el === slugEl))) {
       value.map((slugEl) => (filters = filters.filter((el) => el !== slugEl)));
       setAppliedFilters(filters);
-      // console.log("REMOVEE FILTER", filters);
     } else {
       filters = [...appliedFilters, ...value];
       setAppliedFilters(filters);
-      // console.log("ADD TO FILTERS", filters);
     }
     applyFilters(filters);
   };
@@ -136,18 +127,17 @@ const ProductList = (props) => {
   const applyFilters = (filters) => {
     let searchParam = "";
     let uriCat = filters.length > 0 ? `category=${filters.toString()}` : ``;
-    let uriSearch = bsearch ? `search=${`hello`}` : ``;
+    // let uriSearch = bsearch ? `search=${bsearch}` : ``;
 
-    searchParam = uriCat !== "" && uriSearch !== "" ? `${uriCat}&` : uriCat;
-    searchParam = `${searchParam}${uriSearch}`;
+    searchParam = uriCat;
+    // searchParam = `${searchParam}${uriSearch}`;
     navigate(`${locationPath}?${searchParam}`);
   };
 
   const removeAllFilters = () => {
-    console.log('REMOVE THE FILTERS NOW')
-    setAppliedFilters([])
-    applyFilters([])
-  }
+    setAppliedFilters([]);
+    applyFilters([]);
+  };
 
   useEffect(() => {
     setDisplayLoader(true);
@@ -166,14 +156,17 @@ const ProductList = (props) => {
       <StyledProductPage>
         <StyledSidebar>
           <h3>Filter:</h3>
-          {/* ADAPT ELEMENTS TO BE TO BOOLEAN, ADD LINK TO THE CHECKED LOGIC TO CHANGE COLOR */}
           {categoriesLoading && <div>...Loading Cat</div>}
           {!categoriesLoading && !categoriesError && (
             <>
-              {/* {JSON.stringify(categoriesData[0])} */}
               {categoriesData.map((item, index) => (
                 <SidebarLink
                   key={index}
+                  highlightColor={Boolean(
+                    appliedFilters.find((el) =>
+                      item.slugs.find((slugEl) => el === slugEl)
+                    )
+                  )}
                   onClick={() => {
                     adjustFilter(item.slugs);
                   }}
@@ -190,14 +183,20 @@ const ProductList = (props) => {
               ))}
             </>
           )}
-            {appliedFilters.length > 0 && <SimpleButton clickAction={() => {removeAllFilters()}}>Clear filters</SimpleButton>}
+          {appliedFilters.length > 0 && (
+            <SimpleButton
+              clickAction={() => {
+                removeAllFilters();
+              }}
+            >
+              Clear filters
+            </SimpleButton>
+          )}
         </StyledSidebar>
         <MainProductList>
           {productsLoading && <div>...Loading Products</div>}
           {!productsLoading && !productsError && (
             <>
-              {/* {console.log("filtro prodcutos", productsData)} */}
-              {/* <div>{JSON.stringify(test)}</div> */}
               <GridContainer
                 pagination={12}
                 productInfo={productsData}

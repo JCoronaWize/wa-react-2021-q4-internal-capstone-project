@@ -10,22 +10,21 @@ import {
 import { useState } from "react";
 
 const GridContainer = ({ productInfo, theTitle, pagination }) => {
-
-  const elPerPage = pagination ? pagination : 100;  
+  const elPerPage = pagination ? pagination : 100;
   const [currPage, setCurrPage] = useState(1);
-  const [pages] = useState(Math.ceil(productInfo.length / elPerPage))
+  const [pages] = useState(Math.ceil(productInfo.length / elPerPage));
 
-  const [genPagination] = useState([...Array(pages).keys()]); 
+  const [genPagination] = useState([...Array(pages).keys()]);
 
   const changePage = (event, newPage) => {
-    setCurrPage(newPage + 1)
-  }
+    setCurrPage(newPage + 1);
+  };
   const nextPage = () => {
     setCurrPage((page) => page + 1);
-  } 
+  };
   const previousPage = () => {
     setCurrPage((page) => page - 1);
-  }   
+  };
 
   const getPaginatedData = () => {
     const startIndex = currPage * elPerPage - elPerPage;
@@ -33,11 +32,12 @@ const GridContainer = ({ productInfo, theTitle, pagination }) => {
     return productInfo.slice(startIndex, endIndex);
   };
 
-
   return (
     <Grid>
       <GridTitle>{theTitle}</GridTitle>
-      {productInfo.length === 0 && <GridTitle as='h4'>No Results were found</GridTitle>}
+      {productInfo.length === 0 && (
+        <GridTitle as="h4">No Results were found</GridTitle>
+      )}
       <GridCardContainer>
         {getPaginatedData().map((item, index) => (
           <ProductCard
@@ -53,26 +53,31 @@ const GridContainer = ({ productInfo, theTitle, pagination }) => {
       </GridCardContainer>
       {pagination && (
         <PaginationContainer>
-          <PagintationControl as="button"
-          disabled={Boolean(currPage === 1)}
+          <PagintationControl
+            as="button"
+            disabled={Boolean(currPage === 1)}
             href="./"
             onClick={(event) => previousPage(event)}
           >
             Prev
           </PagintationControl>
           <div>
-            {genPagination.map((page,index) => (
-            <PagintationControl as="button"
-            disabled={Boolean(currPage === page + 1)}
+            {genPagination.map((page, index) => (
+              <PagintationControl
+                as="button"
+                disabled={Boolean(currPage === page + 1)}
                 href="./"
                 key={index}
                 onClick={(event) => changePage(event, page)}
-              > {page+1} </PagintationControl>
-
-              ))}
+              >
+                {" "}
+                {page + 1}{" "}
+              </PagintationControl>
+            ))}
           </div>
-          <PagintationControl as="button"
-          disabled={Boolean(currPage + 1 >= pages)}
+          <PagintationControl
+            as="button"
+            disabled={Boolean(currPage + 1 >= pages)}
             href="./"
             onClick={(event) => nextPage(event)}
           >
