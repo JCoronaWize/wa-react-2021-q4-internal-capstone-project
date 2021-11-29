@@ -72,7 +72,7 @@ export function useProducts(filters = [], search = "") {
   const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
   const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
     '[[at(document.type, "product")]]'
-  )}&lang=en-us&pageSize=30`;
+  )}&lang=en-us&pageSize=60`;
   const [products, setProducts] = useState(() => ({
     data: {},
     test: testUrl,

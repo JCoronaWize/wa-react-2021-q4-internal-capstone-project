@@ -4,6 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import GridContainer from "../components/GridContainer";
 import { useCategoriesList, useProducts } from "../dataFetch";
 import { useLocation, useNavigate } from "react-router-dom";
+import SimpleButton from "../components/StyledButton";
 
 export const StyledProductPage = styled.section`
   display: flex;
@@ -142,6 +143,12 @@ const ProductList = (props) => {
     navigate(`${locationPath}?${searchParam}`);
   };
 
+  const removeAllFilters = () => {
+    console.log('REMOVE THE FILTERS NOW')
+    setAppliedFilters([])
+    applyFilters([])
+  }
+
   useEffect(() => {
     setDisplayLoader(true);
     setTimeout(() => {
@@ -183,6 +190,7 @@ const ProductList = (props) => {
               ))}
             </>
           )}
+            {appliedFilters.length > 0 && <SimpleButton clickAction={() => {removeAllFilters()}}>Clear filters</SimpleButton>}
         </StyledSidebar>
         <MainProductList>
           {productsLoading && <div>...Loading Products</div>}
