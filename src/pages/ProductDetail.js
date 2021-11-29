@@ -21,9 +21,6 @@ const Home = () => {
 
   return (
     <>
-      {/* <p>hello</p>
-      <div>{JSON.stringify(theParams)}sss</div>
-      <div>{JSON.stringify(theLocation)}</div> */}
       {productLoading && <div>...Loading Cat</div>}
 
       {!productLoading && !productError && (
@@ -51,9 +48,9 @@ const Home = () => {
               <AddCartButton></AddCartButton>
               <ul>
                 <InfoLabel>Tags:</InfoLabel>
-                <li>{"Tag1"}</li>
-                <li>{"Tag2"}</li>
-                <li>{"Tag3"}</li>
+                {productData[0].tags.map((item,index) => (
+                  <li key={index}>{item}</li>
+                ))}
               </ul>
             </div>
             <div className="info-container">

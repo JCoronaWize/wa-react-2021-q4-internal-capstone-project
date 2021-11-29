@@ -44,6 +44,7 @@ const SearchResults = (props) => {
                 pagination={20}
                 productInfo={productsData}
                 theTitle="Search Results"
+                showShortDesc
               ></GridContainer>
             </>
           )}

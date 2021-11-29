@@ -9,7 +9,7 @@ import {
 } from "./GridContainer.styles";
 import { useState } from "react";
 
-const GridContainer = ({ productInfo, theTitle, pagination }) => {
+const GridContainer = ({ productInfo, theTitle, pagination, showShortDesc }) => {
   const elPerPage = pagination ? pagination : 100;
   const [currPage, setCurrPage] = useState(1);
   const [pages] = useState(Math.ceil(productInfo.length / elPerPage));
@@ -48,6 +48,7 @@ const GridContainer = ({ productInfo, theTitle, pagination }) => {
             categoryName={item.category_name}
             imgSrc={item.img_src}
             imgAlt={item.img_alt}
+            shortDesc={showShortDesc ? item.short_desc : ''}
           ></ProductCard>
         ))}
       </GridCardContainer>

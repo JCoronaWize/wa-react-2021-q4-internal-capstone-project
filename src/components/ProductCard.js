@@ -14,6 +14,7 @@ const ProductCard = ({
   price,
   imgSrc,
   productId,
+  shortDesc,
 }) => {
   return (
     <Link style={{ textDecoration: "none" }} to={`/product/${productId}`}>
@@ -26,6 +27,7 @@ const ProductCard = ({
             {productName}
             <br />${price}
           </TextName>
+          <TextName>{shortDesc}</TextName>
         </div>
         <AddCartButton></AddCartButton>
       </StyleProductCard>

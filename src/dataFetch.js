@@ -107,6 +107,7 @@ export function useProducts(filters = [], search = "") {
               ...fetchedInfo,
               {
                 name: item.data.name ? item.data.name : "",
+                short_desc: item.data.short_description ? item.data.short_description : "",
                 id: item.id ? item.id : "",
                 price: item.data.price ? item.data.price : "",
                 category_name: item.data.category.slug
@@ -203,6 +204,7 @@ export function useFeaturedProducts() {
               ...fetchedInfo,
               {
                 name: item.data.name ? item.data.name : "",
+                short_desc: item.data.short_description ? item.data.short_description : "",
                 id: item.id ? item.id : "",
                 price: item.data.price ? item.data.price : "",
                 category_name: item.data.category.slug
@@ -278,6 +280,7 @@ export function useProductDetailed(productId) {
               ...fetchedInfo,
               {
                 name: item.data.name ? item.data.name : "",
+                tags: item.tags ? item.tags : [],
                 stock: item.data.stock ? item.data.stock : "",
                 specs: item.data.specs ? item.data.specs : "",
                 images: item.data.images ? item.data.images : "",
@@ -362,6 +365,7 @@ export function useProductSearch(search = "") {
               ...fetchedInfo,
               {
                 name: item.data.name ? item.data.name : "",
+                short_desc: item.data.short_description ? item.data.short_description : "",
                 id: item.id ? item.id : "",
                 price: item.data.price ? item.data.price : "",
                 category_name: item.data.category.slug
