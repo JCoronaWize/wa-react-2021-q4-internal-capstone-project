@@ -11,7 +11,7 @@ import { useState } from "react";
 
 const GridContainer = ({ productInfo, theTitle, pagination }) => {
 
-  const elPerPage = pagination ? 12 : 100;  
+  const elPerPage = pagination ? pagination : 100;  
   const [currPage, setCurrPage] = useState(1);
   const [pages] = useState(Math.ceil(productInfo.length / elPerPage))
 
@@ -37,6 +37,7 @@ const GridContainer = ({ productInfo, theTitle, pagination }) => {
   return (
     <Grid>
       <GridTitle>{theTitle}</GridTitle>
+      {productInfo.length === 0 && <GridTitle as='h4'>No Results were found</GridTitle>}
       <GridCardContainer>
         {getPaginatedData().map((item, index) => (
           <ProductCard
@@ -60,24 +61,15 @@ const GridContainer = ({ productInfo, theTitle, pagination }) => {
             Prev
           </PagintationControl>
           <div>
-            {/* MAXIMUM 12 products */}
             {genPagination.map((page,index) => (
             <PagintationControl as="button"
             disabled={Boolean(currPage === page + 1)}
-                // style = { page === currPage  ? {color: 'pink'} : `` }
                 href="./"
                 key={index}
                 onClick={(event) => changePage(event, page)}
               > {page+1} </PagintationControl>
 
               ))}
-            {/* <PagintationControl as="button"
-              href="./"
-              onClick={(event) => event.preventDefault()}
-            >
-              {" "}
-              2
-            </PagintationControl>             */}
           </div>
           <PagintationControl as="button"
           disabled={Boolean(currPage + 1 >= pages)}

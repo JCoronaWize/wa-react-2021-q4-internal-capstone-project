@@ -320,3 +320,89 @@ export function useProductDetailed(productId) {
 
   return products;
 }
+
+
+
+
+export function useProductSearch(search = "") {
+  const { ref: apiRef, isLoading: isApiMetadataLoading } = useLatestAPI();
+  const testUrl = `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
+    '[[at(document.type, "product")]]'
+  )}&q=${encodeURIComponent(
+    '[[fulltext(document, "'+search+'")]]'
+  )}&lang=en-us&pageSize=60`;
+  const [products, setProducts] = useState(() => ({
+    data: {},
+    test: testUrl,
+    isLoading: true,
+    error: "",
+  }));
+
+  useEffect(() => {
+    if (!apiRef || isApiMetadataLoading) {
+      return () => {};
+    }
+
+    const controller = new AbortController();
+
+    async function getProducts() {
+      try {
+        setProducts({ data: {}, isLoading: true });
+
+        const response = await fetch(
+          testUrl,
+
+          {
+            signal: controller.signal,
+          }
+        );
+        const data = await response.json();
+        // Format json to expected prop names in components
+        let fetchedInfo = [];
+        data.results.map(
+          (item, index) =>
+            (fetchedInfo = [
+              ...fetchedInfo,
+              {
+                name: item.data.name ? item.data.name : "",
+                id: item.id ? item.id : "",
+                price: item.data.price ? item.data.price : "",
+                category_name: item.data.category.slug
+                  ? item.data.category.slug
+                  : "",
+                category_id: item.data.category.id ? item.data.category.id : "",
+                img_src: item.data.mainimage.url ? item.data.mainimage.url : "",
+                img_alt: item.data.mainimage.alt
+                  ? item.data.mainimage.alt
+                  : `Image ${index}`,
+              },
+            ])
+        );
+
+        // if (search) {
+        //   console.log("parametro busqueda");
+        // } else {
+        //   console.log("sin parametro busqueda");
+        // }
+
+        setProducts({
+          data: fetchedInfo,
+          test: testUrl,
+          isLoading: false,
+          error: "",
+        });
+      } catch (err) {
+        setProducts({ data: {}, test: testUrl, isLoading: false, error: err });
+        console.error(err);
+      }
+    }
+
+    getProducts();
+
+    return () => {
+      controller.abort();
+    };
+  }, [apiRef, isApiMetadataLoading, search, testUrl]);
+
+  return products;
+}

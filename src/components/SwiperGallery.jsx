@@ -9,7 +9,7 @@ const SwiperGallery = ({imagesData}) => {
     }
   ))
   return (
-    <ImageGallery items={myImages} />
+    <ImageGallery showFullscreenButton={false} showPlayButton={false} items={myImages} />
   )
 }
 export default SwiperGallery;

@@ -5,6 +5,7 @@ import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import SearchResults from "./pages/Search";
 
 const StyledMain = styled.main`
   display: flex;
@@ -18,7 +19,7 @@ const Content = () => {
       <StyledMain>
         <Routes>
           <Route path="/products" element={<ProductList></ProductList>}></Route>
-          <Route path="/products" element={<ProductList></ProductList>}></Route>
+          <Route path="/search" element={<SearchResults></SearchResults>}></Route>
           <Route
             path="/product/:productId"
             element={<ProductDetail></ProductDetail>}

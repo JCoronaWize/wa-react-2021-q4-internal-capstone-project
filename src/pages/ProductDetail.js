@@ -31,11 +31,6 @@ const Home = () => {
           {/* {productId} */}
           <GalleryContainer>
           <SwiperGallery imagesData={productData[0].images}></SwiperGallery>
-            {/* <img
-              style={{ height: "480px", width: "auto" }}
-              src={productData[0].img_src}
-              alt=""
-            /> */}
           </GalleryContainer>
           <ContentContainer>
             <div className="info-container">

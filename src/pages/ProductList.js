@@ -199,7 +199,7 @@ const ProductList = (props) => {
               {/* {console.log("filtro prodcutos", productsData)} */}
               {/* <div>{JSON.stringify(test)}</div> */}
               <GridContainer
-                pagination
+                pagination={12}
                 productInfo={productsData}
                 theTitle="Product List"
               ></GridContainer>
