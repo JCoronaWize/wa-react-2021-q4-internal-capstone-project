@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import AddCartButton from "../components/AddCartButton";
 import MainButton from "../components/MainButton";
+import SwiperGallery from "../components/SwiperGallery"
 import { useProductDetailed } from "../dataFetch";
 import {
   ContentContainer,
@@ -29,11 +30,12 @@ const Home = () => {
         <MainContainer>
           {/* {productId} */}
           <GalleryContainer>
-            <img
+          <SwiperGallery imagesData={productData[0].images}></SwiperGallery>
+            {/* <img
               style={{ height: "480px", width: "auto" }}
               src={productData[0].img_src}
               alt=""
-            />
+            /> */}
           </GalleryContainer>
           <ContentContainer>
             <div className="info-container">

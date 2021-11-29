@@ -280,6 +280,7 @@ export function useProductDetailed(productId) {
                 name: item.data.name ? item.data.name : "",
                 stock: item.data.stock ? item.data.stock : "",
                 specs: item.data.specs ? item.data.specs : "",
+                images: item.data.images ? item.data.images : "",
                 sku: item.data.sku ? item.data.sku : "",
                 description: item.data.description[0].text
                   ? item.data.description[0].text
