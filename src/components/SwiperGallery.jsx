@@ -1,38 +1,15 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 
-// Import Swiper styles
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
-// import "swiper/css/pagination"
-
-// import "./swiperstyles.css";
-
-
-// import Swiper core and required modules
-import SwiperCore, {
-  Pagination
-} from 'swiper';
-
-// install Swiper modules
-SwiperCore.use([Pagination]);
-const SwiperGallery = ({ imagesData }) => {
+const SwiperGallery = ({imagesData}) => {
+  const myImages = imagesData.map((item) => (
+    {
+      original: item.image.url,
+      thumbnail: item.image.url      
+    }
+  ))
   return (
-    <>
-      <Swiper
-        direction={"vertical"}
-        pagination={{
-          clickable: true,
-        }}
-        className="mySwiper"
-      >
-     {imagesData.map((item, index) => (
-        <SwiperSlide key={index}>
-          <img src={item.image.url} alt="" />
-        </SwiperSlide>
-      ))}          
-      </Swiper>
-    </>
-  );
-};
-
+    <ImageGallery items={myImages} />
+  )
+}
 export default SwiperGallery;
