@@ -8,30 +8,46 @@ import {
   LogoHeader,
 } from "./Header.styled";
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import SimpleButton from "./components/StyledButton";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const Header = ({current, onNavClick}) => {
+const Header = () => {
+  const locationQuery = useLocation().search;
+  const navigate = useNavigate();
+  const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
+    "q"
+  );
+  const [searchTerm, setSearchTerm] = useState(bsearch ? bsearch : "");
+  useEffect(() => {}, [searchTerm]);
 
-    const triggerParentNav = (event, to) => {
-      event.preventDefault()
-      onNavClick(to)
-    }
+  const doSearch = () => {
+    const searchParam = searchTerm ? `q=${searchTerm}` : ``;
+    navigate(`search?${searchParam}`);
+  };
 
   return (
     <header>
-      {/* Crear nav como otro elemento */}
       <TopNav>
-        <a href="./" onClick={(event) => {triggerParentNav(event, '/')}}>
+        <Link to="/home">
           <LogoHeader src={logo} alt="logo" />
-        </a>
+        </Link>
 
         <NavItemsContainer>
           <NavItem>
             <SearchField
               className="search"
-              disabled
               type="text"
               placeholder="Looking for..."
+              // value={searchTerm}
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
             />
+            {searchTerm !== "" && (
+              <SimpleButton clickAction={doSearch}>SEARCH</SimpleButton>
+            )}
           </NavItem>
           <NavItem>
             <TopNavLink href="./">

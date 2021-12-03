@@ -18,7 +18,7 @@ export function useFeaturedBanners() {
 
     async function getFeaturedBanners() {
       try {
-        setFeaturedBanners({ data: {}, isLoading: true });
+        setFeaturedBanners({ data: {}, isLoading: true, error: "" });
 
         const response = await fetch(
           `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
@@ -30,9 +30,9 @@ export function useFeaturedBanners() {
         );
         const data = await response.json();
 
-        setFeaturedBanners({ data, isLoading: false });
+        setFeaturedBanners({ data, isLoading: false, error: "" });
       } catch (err) {
-        setFeaturedBanners({ data: {}, isLoading: false });
+        setFeaturedBanners({ data: {}, isLoading: false,  error: err });
         console.error(err);
       }
     }

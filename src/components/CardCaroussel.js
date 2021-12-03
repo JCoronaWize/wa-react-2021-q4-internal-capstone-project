@@ -5,10 +5,7 @@ import {
   CarousselSlideContainer,
   ArrowNav,
 } from "./CardCaroussel.styles";
-import { getCategoriesData } from "../dataFetch";
-
-const categoriesInfo = getCategoriesData();
-const CardCaroussel = () => {
+const CardCaroussel = ({ cardInfos }) => {
   return (
     <Caroussel>
       <ArrowNav
@@ -24,11 +21,12 @@ const CardCaroussel = () => {
         }}
       ></ArrowNav>
       <CarousselSlideContainer id="the_slider">
-        {categoriesInfo.map((item) => (
+        {cardInfos.map((item) => (
           <CategoryCard
             key={item.id}
             imgSrc={item.img_src}
             categoryName={item.name}
+            categorySlug={item.slugs}
           ></CategoryCard>
         ))}
       </CarousselSlideContainer>

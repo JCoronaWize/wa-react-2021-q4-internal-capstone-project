@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
 import GridContainer from "../components/GridContainer";
-import { getCategoriesData, getFeaturedProductsData } from "../dataFetch";
+import { useCategoriesList, useProducts } from "../dataFetch";
+import { useLocation, useNavigate } from "react-router-dom";
+import SimpleButton from "../components/StyledButton";
 
 export const StyledProductPage = styled.section`
   display: flex;
   flex-direction: row;
-  @media only screen and (max-device-width: 850px) {
+  @media only screen and (max-width: 850px) {
     flex-direction: column;
   }
 `;
@@ -29,7 +31,8 @@ export const SidebarLink = styled.a`
   cursor: pointer;
   text-decoration: none;
   font-size: 1em;
-  color: #b3b3b3;
+  color: ${(props) => (props.highlightColor === true ? "#f1f1f1" : "#b3b3b3")};
+  /* color: #b3b3b3; */
   :hover {
     color: #f1f1f1;
   }
@@ -81,34 +84,59 @@ export const StyledLoader = styled.div`
   }
 `;
 
-const categoriesInfo = getCategoriesData();
-const productInfo = getFeaturedProductsData();
-const ProductList = () => {
-  const [filtProducts, setFiltProducts] = useState(productInfo);
-  const [appliedFilters, setAppliedFilters] = useState([]);
+const ProductList = (props) => {
+  const locationPath = useLocation().pathname;
+  const locationQuery = useLocation().search;
+  const navigate = useNavigate();
+  const bfilters = new URLSearchParams(decodeURIComponent(locationQuery)).get(
+    "category"
+  );
+  // const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
+  //   "search"
+  // );
+  const bfiltersArray =
+    bfilters && bfilters.length > 0 ? bfilters.split(",") : [];
+  const [appliedFilters, setAppliedFilters] = useState(
+    bfiltersArray.length > 0 ? bfiltersArray : []
+  );
   const [displayLoader, setDisplayLoader] = useState(false);
+  const {
+    data: categoriesData,
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useCategoriesList();
+
+  const {
+    data: productsData,
+    isLoading: productsLoading,
+    error: productsError,
+  } = useProducts(appliedFilters);
+
   const adjustFilter = (value) => {
-    let filters = [];
-    if (appliedFilters.find((el) => el === value)) {
-      filters = appliedFilters.filter((el) => el !== value);
+    let filters = [...appliedFilters];
+    if (appliedFilters.find((el) => value.find((slugEl) => el === slugEl))) {
+      value.map((slugEl) => (filters = filters.filter((el) => el !== slugEl)));
       setAppliedFilters(filters);
     } else {
-      filters = [...appliedFilters, value];
+      filters = [...appliedFilters, ...value];
       setAppliedFilters(filters);
     }
     applyFilters(filters);
   };
 
   const applyFilters = (filters) => {
-    let newList = [...productInfo];
-    if (filters.length > 0) {
-      newList = productInfo.filter((el) =>
-        filters.find((filt) => {
-          return filt.toLowerCase() === el.category_name.toLowerCase();
-        })
-      );
-    }
-    setFiltProducts(newList);
+    let searchParam = "";
+    let uriCat = filters.length > 0 ? `category=${filters.toString()}` : ``;
+    // let uriSearch = bsearch ? `search=${bsearch}` : ``;
+
+    searchParam = uriCat;
+    // searchParam = `${searchParam}${uriSearch}`;
+    navigate(`${locationPath}?${searchParam}`);
+  };
+
+  const removeAllFilters = () => {
+    setAppliedFilters([]);
+    applyFilters([]);
   };
 
   useEffect(() => {
@@ -116,35 +144,66 @@ const ProductList = () => {
     setTimeout(() => {
       setDisplayLoader(false);
     }, 2000);
-  }, []);
+  }, [productsData]);
 
   return (
     <>
-      {displayLoader && <StyledLoader>
-        <div className="spin"></div>
-      </StyledLoader>}
+      {displayLoader && (
+        <StyledLoader>
+          <div className="spin"></div>
+        </StyledLoader>
+      )}
       <StyledProductPage>
         <StyledSidebar>
           <h3>Filter:</h3>
-          {categoriesInfo.map((item, index) => (
-            <SidebarLink
-              key={index}
-              onClick={() => {
-                adjustFilter(item.name);
+          {categoriesLoading && <div>...Loading Cat</div>}
+          {!categoriesLoading && !categoriesError && (
+            <>
+              {categoriesData.map((item, index) => (
+                <SidebarLink
+                  key={index}
+                  highlightColor={Boolean(
+                    appliedFilters.find((el) =>
+                      item.slugs.find((slugEl) => el === slugEl)
+                    )
+                  )}
+                  onClick={() => {
+                    adjustFilter(item.slugs);
+                  }}
+                >
+                  {appliedFilters.find((el) =>
+                    item.slugs.find((slugEl) => el === slugEl)
+                  ) ? (
+                    <StyledFilterChecked checked />
+                  ) : (
+                    <StyledFilterChecked />
+                  )}
+                  {item.name}
+                </SidebarLink>
+              ))}
+            </>
+          )}
+          {appliedFilters.length > 0 && (
+            <SimpleButton
+              clickAction={() => {
+                removeAllFilters();
               }}
             >
-              {appliedFilters.find((el) => el === item.name) ? (
-                <StyledFilterChecked checked />
-              ) : (
-                <StyledFilterChecked />
-              )}
-              {item.name}
-            </SidebarLink>
-          ))}
+              Clear filters
+            </SimpleButton>
+          )}
         </StyledSidebar>
         <MainProductList>
-          <h1>This is the product List 🛍️</h1>
-          <GridContainer productInfo={filtProducts}></GridContainer>
+          {productsLoading && <div>...Loading Products</div>}
+          {!productsLoading && !productsError && (
+            <>
+              <GridContainer
+                pagination={12}
+                productInfo={productsData}
+                theTitle="Product List"
+              ></GridContainer>
+            </>
+          )}
         </MainProductList>
       </StyledProductPage>
     </>

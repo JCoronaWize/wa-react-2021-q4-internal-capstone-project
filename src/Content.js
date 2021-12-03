@@ -1,27 +1,40 @@
-import Header from './Header';
-import Footer from './Footer'
-import Home from './pages/Home';
-import ProductList from './pages/ProductList';
-import { useState } from 'react';
+import Header from "./Header";
+import Footer from "./Footer";
+import Home from "./pages/Home";
+import ProductList from "./pages/ProductList";
+import ProductDetail from "./pages/ProductDetail";
+import { Route, Routes } from "react-router-dom";
+import styled from "styled-components";
+import SearchResults from "./pages/Search";
+
+const StyledMain = styled.main`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Content = () => {
-
-    const [currentPage, setCurrentPage] = useState('/')
-
-    const navClick = (to) => {
-      setCurrentPage(to)
-    }
-
-    return(
-      <>
-      <Header current={currentPage} onNavClick={navClick}></Header>
-      <main>
-      {currentPage === '/' && <Home  onNavClick={navClick}></Home>}
-      {currentPage === '/products' && <ProductList></ProductList>}      
-      </main>
+  return (
+    <>
+      <Header></Header>
+      <StyledMain>
+        <Routes>
+          <Route path="/products" element={<ProductList></ProductList>}></Route>
+          <Route
+            path="/search"
+            element={<SearchResults></SearchResults>}
+          ></Route>
+          <Route
+            path="/product/:productId"
+            element={<ProductDetail></ProductDetail>}
+          ></Route>
+          {/* <Route path="/products?:category" element={<ProductList></ProductList>}></Route> */}
+          <Route path="/" element={<Home></Home>}></Route>
+          <Route path="/home" element={<Home></Home>}></Route>
+        </Routes>
+      </StyledMain>
       <Footer></Footer>
-      </>
-    )
-  }
+    </>
+  );
+};
 
-  export default Content
+export default Content;
