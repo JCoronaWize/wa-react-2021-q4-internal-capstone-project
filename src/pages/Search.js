@@ -6,7 +6,7 @@ import {
   StyledLoader,
   StyledProductPage,
   MainProductList,
-} from "./ProductList";
+} from "./ProductList.styles";
 
 const SearchResults = (props) => {
   const locationQuery = useLocation().search;

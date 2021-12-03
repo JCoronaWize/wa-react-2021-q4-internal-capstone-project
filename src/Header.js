@@ -11,7 +11,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SimpleButton from "./components/StyledButton";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Header = () => {
   const locationQuery = useLocation().search;
@@ -20,7 +20,7 @@ const Header = () => {
     "q"
   );
   const [searchTerm, setSearchTerm] = useState(bsearch ? bsearch : "");
-  useEffect(() => {}, [searchTerm]);
+  // useEffect(() => {}, [searchTerm]);
 
   const doSearch = () => {
     const searchParam = searchTerm ? `q=${searchTerm}` : ``;
