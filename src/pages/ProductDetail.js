@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import AddCartButton from "../components/AddCartButton";
+import CartController from "../components/AddCartController";
 import MainButton from "../components/MainButton";
 import SwiperGallery from "../components/SwiperGallery"
 import { useProductDetailed } from "../dataFetch";
@@ -46,6 +47,11 @@ const Home = () => {
                 max={productData[0].stock}
               />
               <AddCartButton></AddCartButton>
+
+              <CartController></CartController>
+
+
+
               <ul>
                 <InfoLabel>Tags:</InfoLabel>
                 {productData[0].tags.map((item,index) => (

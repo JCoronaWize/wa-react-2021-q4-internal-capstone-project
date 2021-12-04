@@ -50,7 +50,7 @@ const Header = () => {
             )}
           </NavItem>
           <NavItem>
-            <TopNavLink href="./">
+            <TopNavLink href="./cart">
               <FaShoppingCart />
             </TopNavLink>
           </NavItem>

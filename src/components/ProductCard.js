@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../Home.css";
 import AddCartButton from "./AddCartButton";
+// import CartController from "./AddCartController";
 import {
   StyleProductCard,
   StyleProductCardImage,
@@ -30,6 +31,7 @@ const ProductCard = ({
           <TextName>{shortDesc}</TextName>
         </div>
         <AddCartButton></AddCartButton>
+        {/* <CartController></CartController> */}
       </StyleProductCard>
     </Link>
   );

@@ -6,6 +6,8 @@ import ProductDetail from "./pages/ProductDetail";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import SearchResults from "./pages/Search";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 const StyledMain = styled.main`
   display: flex;
@@ -18,7 +20,9 @@ const Content = () => {
       <Header></Header>
       <StyledMain>
         <Routes>
-          <Route path="/products" element={<ProductList></ProductList>}></Route>
+        <Route path="/products" element={<ProductList></ProductList>}></Route>
+        <Route path="/cart" element={<Cart></Cart>}></Route>
+        <Route path="/checkout" element={<Checkout></Checkout>}></Route>
           <Route
             path="/search"
             element={<SearchResults></SearchResults>}
