@@ -13,7 +13,6 @@ export const Main = styled.div`
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
   width: 90%;
 `;
@@ -32,28 +31,22 @@ export const VerticalCard = styled.div`
 `;
 export const VerticalCardSection = styled.div`
   display: flex;
-  /* flex-direction: column; */
   flex-direction: ${(props) => (props.flexRow ? "row" : "column")};
   flex: 1 1 auto;
   align-content: flex-start;
   justify-content: flex-end;
   align-items: ${(props) =>
     props.flexRow ? "center" : props.footer ? "flex-end" : "flex-start"};
-  /* padding: 2em; */
   margin: 0 1em;
-  /* width: ${(props) => (props.theWidth ? props.theWidth : "auto")}; */
   p {
     font-size: 1em;
     font-weight: 700;
-    /* display: flex; */
     align-items: ${(props) => (props.footer ? "flex-end" : "flex-start")};
     text-align: ${(props) => (props.footer ? "right" : "left")};
-    /* text-align: left; */
   }
 `;
 
 const StyledTable = styled.table`
-  /* border: solid black 1px; */
   border-collapse: collapse;
   text-align: left;
   tbody {
@@ -88,7 +81,6 @@ const CartSummary = ({ showImage, showEdits }) => {
                   {showImage && <th></th>}
                   <th>Product Information</th>
                   <th></th>
-                  {/* <th></th> */}
                   <th className="subtotal">Subtotal</th>
                 </tr>
               </thead>

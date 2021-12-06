@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "../Home.css";
 import AddCartButton from "./AddCartButton";
-// import CartController from "./AddCartController";
 import {
   StyleProductCard,
   StyleProductCardImage,
@@ -34,7 +33,6 @@ const ProductCard = ({
         </div>
       </Link>
       <AddCartButton prodData={prodData} currStock={currStock} theProductId={productId}></AddCartButton>
-      {/* <CartController></CartController> */}
     </StyleProductCard>
   );
 };

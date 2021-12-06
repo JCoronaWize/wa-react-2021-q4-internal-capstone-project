@@ -3,7 +3,6 @@ import { CartState } from "../context/CartContext";
 
 const StyledButton = styled.button`
   display: flex;
-  /* align-self: flex-start; */
   color: white;
   font-weight: 700;
   border: none;
@@ -35,7 +34,6 @@ const StyledQtySelector = styled.div`
   margin: 0 .6em;
 `
 
-// (globalCart.products.some((item) => item.id === theProductId))
 const AddCartButton = ({ children, to, theProductId, currStock, prodData }) => {
   const { state: globalCart, dispatch } = CartState();
   const productInCart = globalCart.cartProducts.find(

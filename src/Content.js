@@ -31,7 +31,6 @@ const Content = () => {
             path="/product/:productId"
             element={<ProductDetail></ProductDetail>}
           ></Route>
-          {/* <Route path="/products?:category" element={<ProductList></ProductList>}></Route> */}
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/home" element={<Home></Home>}></Route>
         </Routes>

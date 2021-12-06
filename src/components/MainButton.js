@@ -7,7 +7,6 @@ const StyledButton = styled(Link)`
   color: white;
   font-weight: 700;
   border: none;
-  /* background-color: rgba(80, 80, 80, 1); */
   background-color: ${props => props.bgColor ? props.bgColor : 'rgba(80, 80, 80, 1)'};  
   text-transform: uppercase;
   margin: 1em;
@@ -18,7 +17,6 @@ const StyledButton = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   &:hover {
-    /* background-color: rgba(80, 80, 80, 0.8); */
     background-color: ${props => props.bgColor ? props.bgColor : 'rgba(80, 80, 80, 0.8)'};  
   }
 `;

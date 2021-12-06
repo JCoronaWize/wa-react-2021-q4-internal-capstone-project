@@ -12,7 +12,6 @@ export const StyledForm = styled.form`
   font-size: 1.2em;
   border: solid 1px black;
   border-radius: 0.3em;
-  /* max-width: 750px; */
 `;
 
 export const StyledField = styled.div`

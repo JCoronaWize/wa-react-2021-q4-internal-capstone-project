@@ -28,13 +28,11 @@ const ProdcuctsDetail = () => {
 
       {!productLoading && !productError && (
         <MainContainer>
-          {/* {productId} */}
           <GalleryContainer>
           <SwiperGallery imagesData={productData[0].images}></SwiperGallery>
           </GalleryContainer>
           <ContentContainer>
             <div className="info-container">
-              {/* {JSON.stringify(productData)} */}
               <InfoLabel htmlFor="">{productData[0].name}</InfoLabel>
               <InfoLabel htmlFor="">$ {productData[0].price} US</InfoLabel>
               <InfoLabel htmlFor="">SKU: {productData[0].sku}</InfoLabel>

@@ -15,14 +15,12 @@ import { useState } from "react";
 import { CartState } from "./context/CartContext";
 
 const Header = (props) => {
-  // const contextcart = useContext()
   const locationQuery = useLocation().search;
   const navigate = useNavigate();
   const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
     "q"
   );
   const [searchTerm, setSearchTerm] = useState(bsearch ? bsearch : "");
-  // useEffect(() => {}, [searchTerm]);
 
   const doSearch = () => {
     const searchParam = searchTerm ? `q=${searchTerm}` : ``;
@@ -30,7 +28,6 @@ const Header = (props) => {
   };
 
   const { state: globalCart } = CartState();
-  // console.log('Header State', globalCart)
   return (
     <header>
       <TopNav>

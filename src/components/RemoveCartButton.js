@@ -4,7 +4,6 @@ import { AiFillDelete } from "react-icons/ai";
 
 const StyledButton = styled.button`
   display: flex;
-  /* align-self: flex-start; */
   color: white;
   font-weight: 700;
   border: none;
