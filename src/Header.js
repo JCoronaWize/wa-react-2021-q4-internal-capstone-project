@@ -29,7 +29,7 @@ const Header = (props) => {
     navigate(`search?${searchParam}`);
   };
 
-  const {state: globalCart} =   CartState();
+  const { state: globalCart } = CartState();
   // console.log('Header State', globalCart)
   return (
     <header>
@@ -55,8 +55,11 @@ const Header = (props) => {
           </NavItem>
           <NavItem>
             <TopNavLink href="/cart">
-              <FaShoppingCart />
-              ( {globalCart.cartQuantity} )
+              <FaShoppingCart />({" "}
+              {parseInt(globalCart.cartProducts.reduce((count, curItem) => {
+                return parseInt(count) + parseInt(curItem.cartQty);
+              }, 0)) }{" "}
+              )
             </TopNavLink>
           </NavItem>
         </NavItemsContainer>

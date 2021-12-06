@@ -5,7 +5,7 @@ const Cart = () => {
   return (
     <>
             <h2>Cart Summary</h2>
-        <CartSummary></CartSummary>
+        <CartSummary showImage showEdits></CartSummary>
         <MainButton to="/checkout">Go to checkout</MainButton>
     </>
   );

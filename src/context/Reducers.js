@@ -21,11 +21,11 @@
 export const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_PRODUCT":
-        console.log('add_action', action)
         let newCart = [...state.cartProducts]
-        const itemIndex = state.cartProducts.findIndex((item) => item.id === action.payload)
+        console.log('add_action', action)
+        const itemIndex = state.cartProducts.findIndex((item) => item.id === action.payload.id)
         if(itemIndex < 0){
-            newCart = [...state.cartProducts, { id: action.payload, cartQty: 1 }]
+            newCart = [...state.cartProducts, { ...action.payload, cartQty: 1 }]
         }else{
             let updateItem = {...newCart[itemIndex]}
             console.log('Increase cart quantity', updateItem.cartQty)
@@ -41,9 +41,29 @@ export const cartReducer = (state, action) => {
         return {
             cartProducts: newCart
         , cartQuantity: newQty}       
-    
     case "REMOVE_PRODUCT":
-      return { ...state, cart: state.cart.filter(item=>item.id !== action.payload.id)};
+        console.log('REMOVE FROM CART DISPATCH', action)
+        localStorage.setItem("cart", JSON.stringify({ ...state, cartProducts: state.cartProducts.filter(item=>item.id !== action.payload)}))        
+      return { ...state, cartProducts: state.cartProducts.filter(item=>item.id !== action.payload)};
+    case "CHANGE_QUANTITY":
+            console.log('Change quantity', action.newQ)
+            const newQtyB = action.newQ
+            let newCartB = [...state.cartProducts]
+            const itemIndexB = state.cartProducts.findIndex((item) => item.id === action.payload)
+            let updateItemB = {...newCartB[itemIndexB]}
+
+            console.log('Increase cart quantity', updateItemB.cartQty)
+            updateItemB.cartQty = newQtyB
+            newCartB[itemIndexB] = updateItemB
+            console.log('New Quantity', newCartB[itemIndexB].cartQty)   
+            
+            console.log('newQuantityCart', newCartB)
+            localStorage.setItem("cart", JSON.stringify({
+                cartProducts: newCartB
+            , cartQuantity: newQtyB}))
+            return {
+                cartProducts: newCartB
+            , cartQuantity: newQtyB}               
 
     default:
       return state;

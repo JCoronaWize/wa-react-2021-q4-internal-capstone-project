@@ -41,20 +41,7 @@ const ProdcuctsDetail = () => {
               <InfoLabel htmlFor="">
                 Category: {productData[0].category_name.toUpperCase()}
               </InfoLabel>
-              {/* <span>Quantity: </span>
-              <input
-                style={{ fontSize: "1.2em" }}
-                type="number"
-                min="0"
-                max={productData[0].stock}
-                readOnly
-                value={prodCartQty}
-              /> */}
-              <AddCartButton currStock={productData[0].stock} theProductId={productData[0].id}></AddCartButton>
-
-              {/* <CartController></CartController> */}
-
-
+              <AddCartButton prodData={productData[0]} currStock={productData[0].stock} theProductId={productData[0].id}></AddCartButton>
 
               <ul>
                 <InfoLabel>Tags:</InfoLabel>

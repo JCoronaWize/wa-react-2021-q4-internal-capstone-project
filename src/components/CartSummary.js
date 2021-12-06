@@ -1,65 +1,183 @@
 import styled from "styled-components";
 import { CartState } from "../context/CartContext";
 import AddCartButton from "./AddCartButton";
+import RemoveCartButton from "./RemoveCartButton";
+
+export const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  width: 90%;
+`;
 
 export const VerticalCard = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: baseline;
-  justify-content: ${props => props.footer ? 'right' : 'left'};
+  flex: 1 1;
+  align-items: flex-start;
+  justify-content: ${(props) => (props.footer ? "right" : "flex-start")};
   border: solid 1px black;
   border-radius: 5px;
   margin: 1em;
-  align-content: center;
+  padding: 1em;
+  align-content: flex-start;
 `;
 export const VerticalCardSection = styled.div`
-  flex-direction: column;
-  padding: 2em;
-  margin-right: 0 1em;
+  display: flex;
+  /* flex-direction: column; */
+  flex-direction: ${(props) => (props.flexRow ? "row" : "column")};
+  flex: 1 1 auto;
+  align-content: flex-start;
+  justify-content: flex-end;
+  align-items: ${(props) =>
+    props.flexRow ? "center" : props.footer ? "flex-end" : "flex-start"};
+  /* padding: 2em; */
+  margin: 0 1em;
+  /* width: ${(props) => (props.theWidth ? props.theWidth : "auto")}; */
+  p {
+    font-size: 1em;
+    font-weight: 700;
+    /* display: flex; */
+    align-items: ${(props) => (props.footer ? "flex-end" : "flex-start")};
+    text-align: ${(props) => (props.footer ? "right" : "left")};
+    /* text-align: left; */
+  }
 `;
 
-const CartSummary = () => {
+const StyledTable = styled.table`
+  /* border: solid black 1px; */
+  border-collapse: collapse;
+  text-align: left;
+  tbody {
+    font-size: 0.9em;
+    vertical-align: top;
+    text-align: left;
+  }
+  tr {
+    border-bottom: 1pt solid black;
+  }
+  td {
+    padding: 1em 0;
+  }
+  td.subtotal,
+  th.subtotal {
+    text-align: right;
+  }
+`;
+
+const CartSummary = ({ showImage, showEdits }) => {
   const { state: globalCart } = CartState();
   return (
-      <div style={{display: 'flex', flexDirection: 'column', alignItems:'center', justifyContent: 'center'}}>
-    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '850px'}}>
-      {console.log(globalCart.cartProducts)}
-      {globalCart.cartProducts.length === 0 && <p>The cart is empty.</p>}
-      {globalCart.cartProducts.length > 0 && (
-        <>
-          {globalCart.cartProducts.map((item) => (
-            <VerticalCard>
-              <VerticalCardSection>
-            The image smal
+    <Main>
+      <MainContainer>
+        {console.log(globalCart.cartProducts)}
+        {globalCart.cartProducts.length === 0 && <p>The cart is empty.</p>}
+        {globalCart.cartProducts.length > 0 && (
+          <>
+            <StyledTable>
+              <thead>
+                <tr>
+                  {showImage && <th></th>}
+                  <th>Product Information</th>
+                  <th></th>
+                  {/* <th></th> */}
+                  <th className="subtotal">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {globalCart.cartProducts.map((item, key) => (
+                  <tr key={key}>
+                    {showImage && (
+                      <td>
+                        {" "}
+                        <img
+                          style={{ width: "120px" }}
+                          src={item.img_src}
+                          alt={item.img_alt}
+                        />
+                      </td>
+                    )}
+                    <td>
+                      {item.name}
+                      <br />
+                      Price: ${item.price}
+                      {!showEdits && (
+                        <>
+                          {" "}
+                          <br />
+                          Quantity: {item.cartQty}
+                        </>
+                      )}
+                      {showEdits && (
+                        <>
+                          <AddCartButton
+                            currStock={item.stock}
+                            theProductId={item.id}
+                            prodData={item}
+                          ></AddCartButton>
+                        </>
+                      )}
+                    </td>
+                    <td>
+                      {showEdits && (
+                        <>
+                          <RemoveCartButton
+                            theProductId={item.id}
+                          ></RemoveCartButton>
+                        </>
+                      )}
+                    </td>
+                    <td className="subtotal">
+                      ${parseFloat(item.price) * parseFloat(item.cartQty)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </StyledTable>
+          </>
+        )}
 
-              </VerticalCardSection>
-              <VerticalCardSection>
-                <p>The ID</p>
-                <p>{item.id}</p>
-              </VerticalCardSection>
-              <VerticalCardSection>
-              <AddCartButton
-                  currStock={6}
-                  theProductId={item.id}
-                  ></AddCartButton>
-              </VerticalCardSection>              
-                  <VerticalCardSection>
-                      the Subtotal
-              </VerticalCardSection>
-              <p></p>
-            </VerticalCard>
-          ))}
-        </>
-      )}
-      <VerticalCard footer>
-          <VerticalCardSection style={{aligself: 'right'}}>
-              <p>Total</p>
-              <p>Quantity: <span>20</span></p>
-              <p>Amount: <span>$ {12} US</span></p>              
+        <VerticalCard footer>
+          <VerticalCardSection footer>
+            <p>Total</p>
+            <p>
+              Quantity:{" "}
+              <span>
+                {" "}
+                {parseInt(
+                  globalCart.cartProducts.reduce((count, curItem) => {
+                    return parseInt(count) + parseInt(curItem.cartQty);
+                  }, 0)
+                )}
+              </span>
+            </p>
+            <p>
+              Amount:{" "}
+              <span>
+                {" "}
+                $
+                {parseInt(
+                  globalCart.cartProducts.reduce((count, curItem) => {
+                    return (
+                      parseFloat(count) +
+                      parseFloat(curItem.price) * parseFloat(curItem.cartQty)
+                    );
+                  }, 0)
+                )}{" "}
+              </span>
+            </p>
           </VerticalCardSection>
-      </VerticalCard>
-    </div>
-    </div>
+        </VerticalCard>
+      </MainContainer>
+    </Main>
   );
 };
 export default CartSummary;

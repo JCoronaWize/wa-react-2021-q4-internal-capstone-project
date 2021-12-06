@@ -16,7 +16,8 @@ const ProductCard = ({
   imgSrc,
   productId,
   shortDesc,
-  currStock
+  currStock,
+  prodData
 }) => {
   return (
     <StyleProductCard style>
@@ -32,7 +33,7 @@ const ProductCard = ({
           <TextName>{shortDesc}</TextName>
         </div>
       </Link>
-      <AddCartButton currStock={currStock} theProductId={productId}></AddCartButton>
+      <AddCartButton prodData={prodData} currStock={currStock} theProductId={productId}></AddCartButton>
       {/* <CartController></CartController> */}
     </StyleProductCard>
   );
