@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import AddCartButton from "../components/AddCartButton";
-import CartController from "../components/AddCartController";
 import MainButton from "../components/MainButton";
 import SwiperGallery from "../components/SwiperGallery"
+import { CartState } from "../context/CartContext";
 import { useProductDetailed } from "../dataFetch";
 import {
   ContentContainer,
@@ -11,7 +11,7 @@ import {
   MainContainer,
 } from "./ProductDetails.styles";
 
-const Home = () => {
+const ProdcuctsDetail = () => {
   const { productId } = useParams();
   const {
     data: productData,
@@ -19,7 +19,9 @@ const Home = () => {
     error: productError,
     // test,
   } = useProductDetailed(productId);
-
+  const { state: globalCart } = CartState();
+ const productInCart = globalCart.cartProducts.find(item => item.id === productId)
+ console.log(productInCart)
   return (
     <>
       {productLoading && <div>...Loading Cat</div>}
@@ -39,16 +41,18 @@ const Home = () => {
               <InfoLabel htmlFor="">
                 Category: {productData[0].category_name.toUpperCase()}
               </InfoLabel>
-              <span>Quantity: </span>
+              {/* <span>Quantity: </span>
               <input
                 style={{ fontSize: "1.2em" }}
                 type="number"
                 min="0"
                 max={productData[0].stock}
-              />
-              <AddCartButton></AddCartButton>
+                readOnly
+                value={prodCartQty}
+              /> */}
+              <AddCartButton currStock={productData[0].stock} theProductId={productData[0].id}></AddCartButton>
 
-              <CartController></CartController>
+              {/* <CartController></CartController> */}
 
 
 
@@ -88,4 +92,4 @@ const Home = () => {
     </>
   );
 };
-export default Home;
+export default ProdcuctsDetail;

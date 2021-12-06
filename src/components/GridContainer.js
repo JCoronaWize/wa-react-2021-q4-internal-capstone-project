@@ -49,6 +49,7 @@ const GridContainer = ({ productInfo, theTitle, pagination, showShortDesc }) => 
             imgSrc={item.img_src}
             imgAlt={item.img_alt}
             shortDesc={showShortDesc ? item.short_desc : ''}
+            currStock={item.stock}
           ></ProductCard>
         ))}
       </GridCardContainer>
