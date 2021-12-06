@@ -55,17 +55,17 @@ const Checkout = () => {
             </StyledField>
 
             <StyledField>
-              <StyledLabel htmlFor="customerName">Email:</StyledLabel>
-              <StyledInput name="customerName" type="text" />
+              <StyledLabel htmlFor="customerEmail">Email:</StyledLabel>
+              <StyledInput name="customerEmail" type="text" />
             </StyledField>
             <StyledField>
-              <StyledLabel htmlFor="customerName">ZIP code:</StyledLabel>
-              <StyledInput name="customerName" type="text" />
+              <StyledLabel htmlFor="zip">ZIP code:</StyledLabel>
+              <StyledInput name="zip" type="text" />
             </StyledField>
 
             <StyledField>
-              <StyledLabel htmlFor="customerName">Order Notes</StyledLabel>
-              <StyledTextArea name="customerName"></StyledTextArea>
+              <StyledLabel htmlFor="orderNotes">Order Notes</StyledLabel>
+              <StyledTextArea name="orderNotes"></StyledTextArea>
             </StyledField>
           </StyledForm>
         </MainContainer>
