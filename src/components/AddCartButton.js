@@ -52,7 +52,7 @@ const AddCartButton = ({ children, to, theProductId, currStock, prodData }) => {
         }}
         disabled={
           globalCart.cartProducts.some(
-            (item) => item.id === theProductId && item.cartQty === currStock
+            (item) => item.id === theProductId && item.cartQty >= currStock
           ) || currStock === 0
         }
       >
