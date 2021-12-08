@@ -73,7 +73,7 @@ const Checkout = () => {
       <h2>Order Summary</h2>
       <CartSummary></CartSummary>
       <MainButton to="/cart">Back to Cart</MainButton>
-      <MainButton bgColor="#94B054" to="./">
+      <MainButton bgcolor="#94B054" to="./">
         Place Order
       </MainButton>
     </>
