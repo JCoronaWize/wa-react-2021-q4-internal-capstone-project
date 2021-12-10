@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import SimpleButton from "./components/StyledButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { CartState } from "./context/CartContext";
+import { useCartState } from "./context/CartContext";
 
 const Header = (props) => {
   const locationQuery = useLocation().search;
@@ -27,7 +27,7 @@ const Header = (props) => {
     navigate(`search?${searchParam}`);
   };
 
-  const { state: globalCart } = CartState();
+  const { state: globalCart } = useCartState();
   return (
     <header>
       <TopNav>

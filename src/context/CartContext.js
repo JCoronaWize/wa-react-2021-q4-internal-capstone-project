@@ -16,6 +16,6 @@ const CartContext = ({ children }) => {
 };
 export default CartContext;
 
-export const CartState = () => {
+export const useCartState = () => {
   return useContext(Cart);
 };

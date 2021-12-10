@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CartState } from "../context/CartContext";
+import { useCartState } from "../context/CartContext";
 
 const StyledButton = styled.button`
   display: flex;
@@ -35,7 +35,7 @@ const StyledQtySelector = styled.div`
 `
 
 const AddCartButton = ({ children, to, theProductId, currStock, prodData }) => {
-  const { state: globalCart, dispatch } = CartState();
+  const { state: globalCart, dispatch } = useCartState();
   const productInCart = globalCart.cartProducts.find(
     (item) => item.id === theProductId
   );

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CartState } from "../context/CartContext";
+import { useCartState } from "../context/CartContext";
 import { AiFillDelete } from "react-icons/ai";
 
 const StyledButton = styled.button`
@@ -31,7 +31,7 @@ const DeleteIcon = styled(AiFillDelete)`
   font-size: 1.2em;
 `;
 const RemoveCartButton = ({ theProductId }) => {
-  const { dispatch } = CartState();
+  const { dispatch } = useCartState();
   return (
     <>
       <StyledButton

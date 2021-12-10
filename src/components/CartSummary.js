@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CartState } from "../context/CartContext";
+import { useCartState } from "../context/CartContext";
 import AddCartButton from "./AddCartButton";
 import RemoveCartButton from "./RemoveCartButton";
 
@@ -67,7 +67,7 @@ const StyledTable = styled.table`
 `;
 
 const CartSummary = ({ showImage, showEdits }) => {
-  const { state: globalCart } = CartState();
+  const { state: globalCart } = useCartState();
   return (
     <Main>
       <MainContainer>

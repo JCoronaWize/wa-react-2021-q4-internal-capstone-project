@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import AddCartButton from "../components/AddCartButton";
 import MainButton from "../components/MainButton";
 import SwiperGallery from "../components/SwiperGallery"
-import { CartState } from "../context/CartContext";
+import { useCartState } from "../context/CartContext";
 import { useProductDetailed } from "../dataFetch";
 import {
   ContentContainer,
@@ -19,7 +19,7 @@ const ProdcuctsDetail = () => {
     error: productError,
     // test,
   } = useProductDetailed(productId);
-  const { state: globalCart } = CartState();
+  const { state: globalCart } = useCartState();
  const productInCart = globalCart.cartProducts.find(item => item.id === productId)
  console.log(productInCart)
   return (
