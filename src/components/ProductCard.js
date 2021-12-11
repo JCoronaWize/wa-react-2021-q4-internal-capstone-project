@@ -15,10 +15,12 @@ const ProductCard = ({
   imgSrc,
   productId,
   shortDesc,
+  currStock,
+  prodData
 }) => {
   return (
-    <Link style={{ textDecoration: "none" }} to={`/product/${productId}`}>
-      <StyleProductCard style>
+    <StyleProductCard style>
+      <Link style={{ textDecoration: "none" }} to={`/product/${productId}`}>
         <StyleProductCardImage src={imgSrc}>
           <TextCat>{categoryName}</TextCat>
         </StyleProductCardImage>
@@ -29,9 +31,9 @@ const ProductCard = ({
           </TextName>
           <TextName>{shortDesc}</TextName>
         </div>
-        <AddCartButton></AddCartButton>
-      </StyleProductCard>
-    </Link>
+      </Link>
+      <AddCartButton prodData={prodData} currStock={currStock} theProductId={productId}></AddCartButton>
+    </StyleProductCard>
   );
 };
 

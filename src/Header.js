@@ -11,22 +11,23 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SimpleButton from "./components/StyledButton";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { CartState } from "./context/CartContext";
 
-const Header = () => {
+const Header = (props) => {
   const locationQuery = useLocation().search;
   const navigate = useNavigate();
   const bsearch = new URLSearchParams(decodeURIComponent(locationQuery)).get(
     "q"
   );
   const [searchTerm, setSearchTerm] = useState(bsearch ? bsearch : "");
-  useEffect(() => {}, [searchTerm]);
 
   const doSearch = () => {
     const searchParam = searchTerm ? `q=${searchTerm}` : ``;
     navigate(`search?${searchParam}`);
   };
 
+  const { state: globalCart } = CartState();
   return (
     <header>
       <TopNav>
@@ -50,8 +51,12 @@ const Header = () => {
             )}
           </NavItem>
           <NavItem>
-            <TopNavLink href="./">
-              <FaShoppingCart />
+            <TopNavLink href="/cart">
+              <FaShoppingCart />({" "}
+              {parseInt(globalCart.cartProducts.reduce((count, curItem) => {
+                return parseInt(count) + parseInt(curItem.cartQty);
+              }, 0)) }{" "}
+              )
             </TopNavLink>
           </NavItem>
         </NavItemsContainer>

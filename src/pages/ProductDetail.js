@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import AddCartButton from "../components/AddCartButton";
 import MainButton from "../components/MainButton";
 import SwiperGallery from "../components/SwiperGallery"
+import { CartState } from "../context/CartContext";
 import { useProductDetailed } from "../dataFetch";
 import {
   ContentContainer,
@@ -10,7 +11,7 @@ import {
   MainContainer,
 } from "./ProductDetails.styles";
 
-const Home = () => {
+const ProdcuctsDetail = () => {
   const { productId } = useParams();
   const {
     data: productData,
@@ -18,34 +19,28 @@ const Home = () => {
     error: productError,
     // test,
   } = useProductDetailed(productId);
-
+  const { state: globalCart } = CartState();
+ const productInCart = globalCart.cartProducts.find(item => item.id === productId)
+ console.log(productInCart)
   return (
     <>
       {productLoading && <div>...Loading Cat</div>}
 
       {!productLoading && !productError && (
         <MainContainer>
-          {/* {productId} */}
           <GalleryContainer>
           <SwiperGallery imagesData={productData[0].images}></SwiperGallery>
           </GalleryContainer>
           <ContentContainer>
             <div className="info-container">
-              {/* {JSON.stringify(productData)} */}
               <InfoLabel htmlFor="">{productData[0].name}</InfoLabel>
               <InfoLabel htmlFor="">$ {productData[0].price} US</InfoLabel>
               <InfoLabel htmlFor="">SKU: {productData[0].sku}</InfoLabel>
               <InfoLabel htmlFor="">
                 Category: {productData[0].category_name.toUpperCase()}
               </InfoLabel>
-              <span>Quantity: </span>
-              <input
-                style={{ fontSize: "1.2em" }}
-                type="number"
-                min="0"
-                max={productData[0].stock}
-              />
-              <AddCartButton></AddCartButton>
+              <AddCartButton prodData={productData[0]} currStock={productData[0].stock} theProductId={productData[0].id}></AddCartButton>
+
               <ul>
                 <InfoLabel>Tags:</InfoLabel>
                 {productData[0].tags.map((item,index) => (
@@ -82,4 +77,4 @@ const Home = () => {
     </>
   );
 };
-export default Home;
+export default ProdcuctsDetail;
