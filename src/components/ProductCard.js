@@ -19,7 +19,7 @@ const ProductCard = ({
   prodData
 }) => {
   return (
-    <StyleProductCard style>
+    <StyleProductCard title="product-card-info" style>
       <Link style={{ textDecoration: "none" }} to={`/product/${productId}`}>
         <StyleProductCardImage src={imgSrc}>
           <TextCat>{categoryName}</TextCat>

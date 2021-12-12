@@ -26,7 +26,7 @@ const HeroSlider = ({ slideData, slideCount }) => {
   };
 
   return (
-    <StyledHeroSlider>
+    <StyledHeroSlider title="banner-slider">
       <ArrowNav direction="left" onClick={prevSlide}></ArrowNav>
       <ArrowNav direction="right" onClick={nextSlide}></ArrowNav>
       <SlideContainer>
