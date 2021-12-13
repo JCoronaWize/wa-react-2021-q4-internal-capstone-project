@@ -46,7 +46,7 @@ const Home = () => {
         <>
           {/* <div>{JSON.stringify(test)}</div> */}
           {/* <div>{JSON.stringify(featuredProductsData)}</div> */}
-          <GridContainer
+          <GridContainer title="featured-cards"
             productInfo={featuredProductsData}
             theTitle="Featured Products"
           ></GridContainer>

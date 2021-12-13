@@ -134,13 +134,13 @@ export function useProducts(filters = [], search = "") {
           );
           fetchedInfo = [...newList];
         } else {
-          console.log("Ver todo");
+          // console.log("Ver todo");
         }
 
         if (search) {
-          console.log("parametro busqueda");
+          // console.log("parametro busqueda");
         } else {
-          console.log("sin parametro busqueda");
+          // console.log("sin parametro busqueda");
         }
 
         setProducts({

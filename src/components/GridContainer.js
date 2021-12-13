@@ -58,6 +58,7 @@ const GridContainer = ({ productInfo, theTitle, pagination, showShortDesc }) => 
         <PaginationContainer>
           <PagintationControl
             as="button"
+            title="previousPage"
             disabled={Boolean(currPage === 1)}
             href="./"
             onClick={(event) => previousPage(event)}
@@ -67,6 +68,7 @@ const GridContainer = ({ productInfo, theTitle, pagination, showShortDesc }) => 
           <div>
             {genPagination.map((page, index) => (
               <PagintationControl
+              title="pageController"
                 as="button"
                 disabled={Boolean(currPage === page + 1)}
                 href="./"
@@ -80,6 +82,7 @@ const GridContainer = ({ productInfo, theTitle, pagination, showShortDesc }) => 
           </div>
           <PagintationControl
             as="button"
+            title="nextPage"
             disabled={Boolean(currPage + 1 >= pages)}
             href="./"
             onClick={(event) => nextPage(event)}
