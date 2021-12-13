@@ -102,7 +102,9 @@ const ProductList = (props) => {
                   ) : (
                     <StyledFilterChecked />
                   )}
+                  <span  title="sidebar-filter-el-name">
                   {item.name}
+                  </span>
                 </SidebarLink>
               ))}
             </>

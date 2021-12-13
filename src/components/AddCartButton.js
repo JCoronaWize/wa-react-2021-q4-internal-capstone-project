@@ -62,6 +62,7 @@ const AddCartButton = ({ children, to, theProductId, currStock, prodData }) => {
         <StyledQtySelector>
           <StyledInfoLabel>Quantity: </StyledInfoLabel>
           <select
+          title = "quantitySelector"
             onChange={(event) => {
               dispatch({
                 type: "CHANGE_QUANTITY",

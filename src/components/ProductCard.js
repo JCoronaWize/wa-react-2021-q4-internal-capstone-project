@@ -22,14 +22,14 @@ const ProductCard = ({
     <StyleProductCard title="product-card-info" style>
       <Link style={{ textDecoration: "none" }} to={`/product/${productId}`}>
         <StyleProductCardImage src={imgSrc}>
-          <TextCat>{categoryName}</TextCat>
+          <TextCat title="card-category-tag">{categoryName}</TextCat>
         </StyleProductCardImage>
         <div>
-          <TextName>
+          <TextName title="product-name">
             {productName}
             <br />${price}
           </TextName>
-          <TextName>{shortDesc}</TextName>
+          <TextName title="product-description">{shortDesc}</TextName>
         </div>
       </Link>
       <AddCartButton prodData={prodData} currStock={currStock} theProductId={productId}></AddCartButton>

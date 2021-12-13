@@ -71,8 +71,8 @@ const CartSummary = ({ showImage, showEdits }) => {
   return (
     <Main>
       <MainContainer>
-        {console.log(globalCart.cartProducts)}
-        {globalCart.cartProducts.length === 0 && <p>The cart is empty.</p>}
+        {/* {console.log(globalCart.cartProducts)} */}
+        {globalCart.cartProducts.length === 0 && <p data-testid="alertEmptyCart">The cart is empty.</p>}
         {globalCart.cartProducts.length > 0 && (
           <>
             <StyledTable>
@@ -84,13 +84,14 @@ const CartSummary = ({ showImage, showEdits }) => {
                   <th className="subtotal">Subtotal</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody data-testid="cart-summary-tb-body">
                 {globalCart.cartProducts.map((item, key) => (
                   <tr key={key}>
                     {showImage && (
                       <td>
                         {" "}
                         <img
+                         title="rowProductImage"
                           style={{ width: "120px" }}
                           src={item.img_src}
                           alt={item.img_alt}
@@ -98,14 +99,14 @@ const CartSummary = ({ showImage, showEdits }) => {
                       </td>
                     )}
                     <td>
-                      {item.name}
+                    <span title="rowProductName">{item.name}</span>
                       <br />
-                      Price: ${item.price}
+                      Price: $<span title="rowProductPrice">{item.price}</span>
                       {!showEdits && (
                         <>
                           {" "}
                           <br />
-                          Quantity: {item.cartQty}
+                          Quantity: <span title="rowProductQuantity">{item.cartQty}</span>
                         </>
                       )}
                       {showEdits && (
@@ -128,7 +129,7 @@ const CartSummary = ({ showImage, showEdits }) => {
                       )}
                     </td>
                     <td className="subtotal">
-                      ${parseFloat(item.price) * parseFloat(item.cartQty)}
+                      $<span title="rowProductSubtotal">{parseFloat(item.price) * parseFloat(item.cartQty)}</span>
                     </td>
                   </tr>
                 ))}
@@ -153,18 +154,19 @@ const CartSummary = ({ showImage, showEdits }) => {
             </p>
             <p>
               Amount:{" "}
-              <span>
                 {" "}
                 $
-                {parseInt(
+              <span data-testid="cart-total">
+                {parseFloat(
                   globalCart.cartProducts.reduce((count, curItem) => {
                     return (
                       parseFloat(count) +
-                      parseFloat(curItem.price) * parseFloat(curItem.cartQty)
+                      parseFloat( curItem.price * curItem.cartQty)
                     );
                   }, 0)
-                )}{" "}
+                )}
               </span>
+                {" "}
             </p>
           </VerticalCardSection>
         </VerticalCard>

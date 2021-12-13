@@ -20,7 +20,7 @@ const CardCaroussel = ({ cardInfos }) => {
           document.getElementById("the_slider").scrollLeft += 500;
         }}
       ></ArrowNav>
-      <CarousselSlideContainer id="the_slider">
+      <CarousselSlideContainer  title="carrousel" id="the_slider">
         {cardInfos.map((item) => (
           <CategoryCard
             key={item.id}

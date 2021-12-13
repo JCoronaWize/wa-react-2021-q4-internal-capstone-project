@@ -51,11 +51,14 @@ const Header = (props) => {
             )}
           </NavItem>
           <NavItem>
-            <TopNavLink href="/cart">
+            <TopNavLink as={Link} data-testid="cartButton" to="/cart">
               <FaShoppingCart />({" "}
+              <span data-testid="cartQuantityBar">
               {parseInt(globalCart.cartProducts.reduce((count, curItem) => {
                 return parseInt(count) + parseInt(curItem.cartQty);
-              }, 0)) }{" "}
+              }, 0)) }
+              </span>
+              {" "}
               )
             </TopNavLink>
           </NavItem>

@@ -35,6 +35,7 @@ const RemoveCartButton = ({ theProductId }) => {
   return (
     <>
       <StyledButton
+      title="removeFromCartBtn"
         onClick={() => {
           dispatch({
             type: "REMOVE_PRODUCT",
